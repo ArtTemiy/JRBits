@@ -2,7 +2,7 @@
 // Created by ArtTemiy on 28.02.2021.
 //
 
-#include <TopDownEngine/Core.h>
+#include <TopDownEngine/core.hpp>
 
 namespace Engine {
     Coordinates Object::GetCoordinates() const {

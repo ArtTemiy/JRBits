@@ -10,7 +10,7 @@
 
 #include <glog/logging.h>
 
-#include <TopDownEngine/Map.h>
+#include <TopDownEngine/map.hpp>
 
 namespace Engine {
     MapSize Map::GetSize() const {

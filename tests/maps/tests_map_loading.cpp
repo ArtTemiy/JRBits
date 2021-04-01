@@ -7,7 +7,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <TopDownEngine/Map.h>
+#include <TopDownEngine/map.hpp>
 
 namespace Engine::Tests::MapLoading {
     TEST(MapLoading, SmallFull) {

@@ -17,22 +17,22 @@ add_subdirectory("deps/glog")
 
 # ENGINE LIBRARY
 set(HEADER_LIST
-        include/TopDownEngine/Core.h
-        include/TopDownEngine/Drawable.hpp
-        include/TopDownEngine/Map.h
-        include/TopDownEngine/controller/controller.h
-        include/TopDownEngine/object/dynamic_object.h
-        include/TopDownEngine/object/actor.h)
+        include/TopDownEngine/core.hpp
+        include/TopDownEngine/drawable/drawable.hpp
+        include/TopDownEngine/map.hpp
+        include/TopDownEngine/controller/controller.hpp
+        include/TopDownEngine/object/dynamic_object.hpp
+        include/TopDownEngine/object/actor.hpp include/TopDownEngine/world.hpp)
 
 add_library(top_down_engine
         ${HEADER_LIST}
-        src/Core.cpp
-        src/Drawable.cpp
-        src/Map.cpp
+        src/core.cpp
+        src/drawable/drawable.cpp
+        src/map.cpp
         src/object/dynamic_object.cpp
         src/controller/controller.cpp
         src/object/dynamic_object.cpp
-        src/object/actor.cpp)
+        src/object/actor.cpp src/world.cpp)
 
 target_link_libraries(top_down_engine ${SFML_LIB})
 target_include_directories(top_down_engine PUBLIC include)

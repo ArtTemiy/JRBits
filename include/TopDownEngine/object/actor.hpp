@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <TopDownEngine/Core.h>
-#include <TopDownEngine/controller/controller.h>
-#include <TopDownEngine/Drawable.hpp>
-#include "dynamic_object.h"
+#include <TopDownEngine/core.hpp>
+#include <TopDownEngine/controller/controller.hpp>
+#include <TopDownEngine/drawable/drawable.hpp>
+#include "dynamic_object.hpp"
 
 namespace Engine {
     /// Actor - dynamic object with controller

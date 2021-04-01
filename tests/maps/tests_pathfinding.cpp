@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <TopDownEngine/Map.h>
+#include <TopDownEngine/map.hpp>
 
 namespace Engine::Tests::PathFinding {
     struct TestData {

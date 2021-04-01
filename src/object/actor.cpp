@@ -2,7 +2,7 @@
 // Created by Artemiy Shvedov on 01.04.21.
 //
 
-#include <TopDownEngine/object/actor.h>
+#include <TopDownEngine/object/actor.hpp>
 
 namespace Engine {
     void Actor::Tick(double time_delta) {

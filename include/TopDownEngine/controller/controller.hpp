@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <TopDownEngine/object/dynamic_object.h>
+#include <TopDownEngine/object/dynamic_object.hpp>
 #include <memory>
 
 namespace Engine {

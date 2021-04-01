@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <TopDownEngine/Core.h>
+#include <TopDownEngine/core.hpp>
 
 using MovingDirection = std::array<double, 2>;
 

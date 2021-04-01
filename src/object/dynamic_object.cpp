@@ -2,7 +2,7 @@
 // Created by Artemiy Shvedov on 01.04.21.
 //
 
-#include <TopDownEngine/object/dynamic_object.h>
+#include <TopDownEngine/object/dynamic_object.hpp>
 #include <cmath>
 
 namespace Engine {
