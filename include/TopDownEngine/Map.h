@@ -10,7 +10,6 @@
 #include <memory>
 
 namespace Engine {
-
     /// Tile structure
     struct Tile {
         bool is_block = false;

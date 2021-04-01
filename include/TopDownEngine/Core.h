@@ -7,7 +7,6 @@
 #include <array>
 
 namespace Engine {
-
     /// Class with tick function that called every frame
     class Tickable {
     public:

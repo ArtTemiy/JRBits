@@ -13,7 +13,6 @@
 #include <TopDownEngine/Map.h>
 
 namespace Engine {
-
     MapSize Map::GetSize() const {
         return { height_, width_ };
     }

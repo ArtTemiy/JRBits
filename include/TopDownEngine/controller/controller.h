@@ -8,7 +8,7 @@
 #include <memory>
 
 namespace Engine {
-/// Class decide what to do
+    /// Class decide what to do
     class Controller {
         DynamicObject *object_ptr_;
     public:

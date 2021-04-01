@@ -5,7 +5,6 @@
 #include <TopDownEngine/Core.h>
 
 namespace Engine {
-
     Coordinates Object::GetCoordinates() const {
         return coordinates_;
     }

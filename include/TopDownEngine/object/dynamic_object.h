@@ -9,7 +9,7 @@
 using MovingDirection = std::array<double, 2>;
 
 namespace Engine {
-/// Dynamic object with moving ability
+    /// Dynamic object with moving ability
     class DynamicObject : public Object, Tickable {
         /// Maximum possible velocity
         double max_velocity_;

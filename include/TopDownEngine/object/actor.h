@@ -10,8 +10,7 @@
 #include "dynamic_object.h"
 
 namespace Engine {
-
-/// Actor - dynamic object with controller
+    /// Actor - dynamic object with controller
     class Actor : public DynamicObject, Drawable {
         ControllerPtr controller_;
 
