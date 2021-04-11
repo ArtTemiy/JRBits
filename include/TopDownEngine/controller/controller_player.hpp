@@ -28,7 +28,7 @@ namespace Engine::Controller {
         void RunActionKeyReleased(Actions action);
 
     public:
-        PlayerController() {}
+        PlayerController() = default;
 
         bool ProcessEvent(const sf::Event &event) override;
     };

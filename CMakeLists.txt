@@ -28,7 +28,7 @@ add_library(top_down_engine
         src/world.cpp
         src/controller/controller_player.cpp
         src/physics/vector.cpp
-        src/map/game_tile.cpp src/map/i_tile.cpp)
+        src/map/game_tile.cpp src/map/i_tile.cpp src/launcher/launcher.cpp)
 
 target_link_libraries(top_down_engine ${SFML_LIB})
 target_include_directories(top_down_engine PUBLIC include)

@@ -11,7 +11,7 @@
 
 namespace Engine {
     /// Actor - dynamic object with controller
-    class Actor : public DynamicObject, IDrawable {
+    class Actor : public DynamicObject, Drawable::IDrawable {
         Controller::ControllerPtr controller_;
 
     public:

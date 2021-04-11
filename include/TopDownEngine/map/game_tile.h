@@ -14,7 +14,7 @@
 #include <memory>
 
 namespace Engine {
-    class GameTile : public DrawableStatic, public ITile {
+    class GameTile : public Drawable::DrawableStatic, public ITile {
     public:
         enum Type {
             kGrass,

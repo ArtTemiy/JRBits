@@ -5,7 +5,7 @@
 #include <TopDownEngine/drawable/drawable.hpp>
 #include <TopDownEngine/physics/vector.hpp>
 
-namespace Engine {
+namespace Engine::Drawable {
     void SetSpriteSize(sf::Sprite& sprite, uint height, uint width) {
         sprite.setScale(
                 static_cast<float>(width) / sprite.getTexture()->getSize().x,
@@ -18,7 +18,7 @@ namespace Engine {
         window_.draw(sprite);
     }
 
-    void FlipBook::Draw(const Engine::Coordinates &coordinates, Engine::Camera &camera) {
+    void FlipBook::Draw(const Engine::Coordinates &coordinates, Camera &camera) {
         camera.DrawSprite(sprites_[current_sprite_], coordinates);
     }
 

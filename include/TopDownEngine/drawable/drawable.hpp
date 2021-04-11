@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <utility>
 
-namespace Engine {
+namespace Engine::Drawable {
     class Camera : public Tickable {
         sf::RenderWindow& window_;
         sf::View view_;
@@ -85,7 +85,7 @@ namespace Engine {
 
         void Tick(double time_delta) override;
 
-        void Draw(const Engine::Coordinates &coordinates, Engine::Camera& camera) override;
+        void Draw(const Engine::Coordinates &coordinates, Engine::Drawable::Camera& camera) override;
 
         void SetSize(uint height, uint width) override;
     };

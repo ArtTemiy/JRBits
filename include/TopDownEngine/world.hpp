@@ -15,11 +15,13 @@
 #include <memory>
 
 namespace Engine {
-    class World : public Tickable, IDrawable {
+    class World : public Tickable, Drawable::IDrawable {
         Map map_;
-        std::shared_ptr<Camera> camera_;
+        std::shared_ptr<Drawable::Camera> camera_;
 
     public:
+        using Camera = Drawable::Camera;
+        
         World() : map_(0, 0), camera_(nullptr) {}
 
         const Map& GetMap() const {
@@ -28,10 +30,12 @@ namespace Engine {
 
         void SetMap(const Map &map) {
             map_ = map;
-            camera_->GetView().setCenter(
-                    map_.GetSize()[0] * GameTile::GetTileSize() / 2,
-                    map_.GetSize()[1] * GameTile::GetTileSize() / 2);
-            camera_->UpdateView();
+            if (camera_) {
+                camera_->GetView().setCenter(
+                        map_.GetSize()[0] * GameTile::GetTileSize() / 2,
+                        map_.GetSize()[1] * GameTile::GetTileSize() / 2);
+                camera_->UpdateView();
+            }
         }
 
         std::shared_ptr<Camera> &GetCamera() {
@@ -40,6 +44,10 @@ namespace Engine {
 
         void SetCamera(const std::shared_ptr<Camera> &camera) {
             camera_ = camera;
+            camera_->GetView().setCenter(
+                    map_.GetSize()[0] * GameTile::GetTileSize() / 2,
+                    map_.GetSize()[1] * GameTile::GetTileSize() / 2);
+            camera_->UpdateView();
         }
 
         void Draw(const Coordinates &coordinates, Camera &camera) override {}

@@ -19,6 +19,10 @@ namespace Engine {
     };
 
     bool GameTilesTextureLoader::LoadData() {
+        if (data_loaded) {
+            return true;
+        }
+
         std::string rsrc_dir = "rsrc/textures/tile/";
         std::vector<std::string> file_names = {"grass", "dirt", "mountain"};
         for (auto& file_name : file_names) {
