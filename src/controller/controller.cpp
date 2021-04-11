@@ -4,8 +4,8 @@
 
 #include <TopDownEngine/controller/controller.hpp>
 
-namespace Engine {
-    void Controller::Init(DynamicObject *object_ptr) {
+namespace Engine::Controller {
+    void IController::Init(DynamicObject *object_ptr) {
         object_ptr_ = object_ptr;
     }
 }

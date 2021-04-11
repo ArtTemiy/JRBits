@@ -5,6 +5,7 @@
 #pragma once
 
 #include <TopDownEngine/core.hpp>
+#include <TopDownEngine/physics/vector.hpp>
 
 using MovingDirection = std::array<double, 2>;
 
@@ -23,7 +24,9 @@ namespace Engine {
 
         MovingDirection GetMovingDirection() const;
 
-        void SetMovingDirection(const MovingDirection &new_moving_direction);
+        void SetMovingDirection(const MovingDirection& new_moving_direction);
+
+        void AddMovingDirection(const MovingDirection& new_moving_direction);
 
         void Tick(double time_delta) override;
     };

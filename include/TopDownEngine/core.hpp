@@ -4,9 +4,13 @@
 
 #pragma once
 
+#include <TopDownEngine/physics/vector.hpp>
+
 #include <array>
 
 namespace Engine {
+    using uint = uint32_t;
+
     /// Class with tick function that called every frame
     class Tickable {
     public:
@@ -15,8 +19,8 @@ namespace Engine {
         virtual void Tick(double time_delta) = 0;
     };
 
-    using Coordinates = std::array<double, 2>;
-    using Size = std::array<double, 2>;
+    using Coordinates = Vector;
+    using Size = Vector;
 
     /// Simple box object
     class Object {

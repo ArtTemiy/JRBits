@@ -6,24 +6,63 @@
 
 #include <TopDownEngine/core.hpp>
 #include <SFML/Graphics.hpp>
+#include <utility>
 
 namespace Engine {
-    class Camera : Object {
+    class Camera : public Tickable {
         sf::RenderWindow& window_;
+        sf::View view_;
 
     public:
-        Camera(Coordinates coordinates, sf::RenderWindow &window)
-        : Object(coordinates, {0, 0}),
-          window_(window) {}
+        explicit Camera(sf::RenderWindow &window)
+        : window_(window),
+          view_(sf::Vector2f(0, 0), sf::Vector2f(
+                  window_.getSize().x, window_.getSize().y)) {
+            UpdateView();
+        }
 
-        void DrawSprite(sf::Sprite sprite, const Coordinates& coordinates);
+        sf::View& GetView() {
+            return view_;
+        }
+
+        void UpdateView() {
+            window_.setView(view_);
+        }
+
+        void DrawSprite(sf::Sprite& sprite, const Coordinates& coordinates);
+
+        void Tick(double time_delta) override {
+            UpdateView();
+        }
     };
 
-    class Drawable {
-        virtual void Draw(const Coordinates& coordinates, const Camera& camera) = 0;
+    class IDrawable {
+        virtual void Draw(const Coordinates& coordinates, Camera& camera) = 0;
+
+        virtual void SetSize(uint height, uint width) = 0;
     };
 
-    class FlipBook : public Tickable, Drawable {
+    class DrawableStatic : public IDrawable {
+        sf::Sprite sprite_;
+    public:
+        void LoadSprite(sf::Texture& texture) {
+            sprite_.setTexture(texture);
+        }
+
+        void SetSprite(sf::Sprite sprite) {
+            sprite_ = std::move(sprite);
+        }
+
+        auto& GetSprite() {
+            return sprite_;
+        }
+
+        void Draw(const Coordinates &coordinates, Camera& camera) override;
+
+        void SetSize(uint height, uint width) override;
+    };
+
+    class FlipBook : public Tickable, IDrawable {
         std::vector<sf::Sprite> sprites_;
         std::vector<double> times_;
         double time_left_;
@@ -39,12 +78,15 @@ namespace Engine {
                 throw  std::length_error("Size and sprites lengths arn\'t equal");
             }
         }
+
         const sf::Sprite& GetSprite() const;
 
         void Reset();
 
         void Tick(double time_delta) override;
 
-        void Draw(const Engine::Coordinates &coordinates, const Engine::Camera &camera) override;
+        void Draw(const Engine::Coordinates &coordinates, Engine::Camera& camera) override;
+
+        void SetSize(uint height, uint width) override;
     };
 }

@@ -3,11 +3,31 @@
 //
 
 #include <TopDownEngine/drawable/drawable.hpp>
+#include <TopDownEngine/physics/vector.hpp>
 
 namespace Engine {
-    void Camera::DrawSprite(sf::Sprite sprite, const Coordinates& coordinates) {
-        sprite.setPosition(coordinates[0], coordinates[1]);
+    void SetSpriteSize(sf::Sprite& sprite, uint height, uint width) {
+        sprite.setScale(
+                static_cast<float>(width) / sprite.getTexture()->getSize().x,
+                static_cast<float>(height) / sprite.getTexture()->getSize().y
+        );
+    }
+
+    void Camera::DrawSprite(sf::Sprite& sprite, const Coordinates& coordinates) {
+        sprite.setPosition(coordinates[1], coordinates[0]);
         window_.draw(sprite);
+    }
+
+    void FlipBook::Draw(const Engine::Coordinates &coordinates, Engine::Camera &camera) {
+        camera.DrawSprite(sprites_[current_sprite_], coordinates);
+    }
+
+    void DrawableStatic::Draw(const Coordinates &coordinates, Camera& camera) {
+        camera.DrawSprite(sprite_, coordinates);
+    }
+
+    void DrawableStatic::SetSize(uint height, uint width) {
+        SetSpriteSize(sprite_, height, width);
     }
 
     const sf::Sprite& FlipBook::GetSprite() const {
@@ -27,8 +47,10 @@ namespace Engine {
         }
     }
 
-    void FlipBook::Draw(const Engine::Coordinates &coordinates, const Engine::Camera &camera) {
-
+    void FlipBook::SetSize(uint height, uint width) {
+        for (auto& sprite : sprites_) {
+            SetSpriteSize(sprite, height, width);
+        }
     }
 }
 

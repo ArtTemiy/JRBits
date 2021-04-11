@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <TopDownEngine/map.hpp>
+#include <TopDownEngine/map/map.hpp>
 
 namespace Engine::Tests::PathFinding {
     struct TestData {
@@ -39,7 +39,7 @@ namespace Engine::Tests::PathFinding {
             ASSERT_LT(coordinate[1], map_size[1]);
             ASSERT_GE(coordinate[0], 0);
             ASSERT_GE(coordinate[1], 0);
-            ASSERT_EQ(map.GetTile(coordinate).is_block, false);
+            ASSERT_EQ(map.GetTile(coordinate)->GetIsBlock(), false);
         }
         for (size_t i = 0; i < coordinates.size() - 1; ++i) {
             bool step_correct = false;

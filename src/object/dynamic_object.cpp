@@ -28,4 +28,8 @@ namespace Engine {
                 coordinates[1] + max_velocity_ * time_delta * moving_direction_[1],
         });
     }
+
+    void DynamicObject::AddMovingDirection(const MovingDirection &new_moving_direction) {
+        moving_direction_ = moving_direction_ + new_moving_direction;
+    }
 }

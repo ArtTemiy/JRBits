@@ -11,8 +11,19 @@
 
 namespace Engine {
     /// Tile structure
-    struct Tile {
+    class Tile {
+    public:
+        bool GetIsBlock() const {
+            return is_block;
+        }
+
+        void SetIsBlock(bool isBlock) {
+            is_block = isBlock;
+        }
+
+    private:
         bool is_block = false;
+    public:
     };
 
     using TilePtr = std::shared_ptr<Tile>;
@@ -22,10 +33,13 @@ namespace Engine {
     using Path = std::vector<TileCoordinates>;
 
     /// Map contains titles, supporting pathfinding
+    template <class Tile>
     class Map {
+        using TilePtr = std::shared_ptr<Tile>;
+        
         uint width_;
         uint height_;
-        std::vector<std::vector<Tile>> tiles_;
+        std::vector<std::vector<TilePtr>> tiles_;
 
     public:
         Map(uint width, uint height)
@@ -44,22 +58,22 @@ namespace Engine {
 
         MapSize GetSize() const;
 
-        Tile& GetTile(uint row, uint column);
+        TilePtr GetTile(uint row, uint column);
 
-        Tile& GetTile(const TileCoordinates& coordinates);
+        TilePtr GetTile(const TileCoordinates& coordinates);
 
-        const Tile& GetTile(uint row, uint ) const;
+        const TilePtr GetTile(uint row, uint column) const;
 
-        const Tile& GetTile(const TileCoordinates& coordinates) const;
+        const TilePtr GetTile(const TileCoordinates& coordinates) const;
 
-        std::vector<Tile>& operator[](uint row);
+        std::vector<TilePtr>& operator[](uint row);
 
-        const std::vector<Tile>& operator[](uint row) const;
+        const std::vector<TilePtr>& operator[](uint row) const;
 
-        /// Computes path between given tiles
+        /// Computes path between given tile
         /// @param [in] start_tile Start tile
         /// @param [in] end_tile End tile
-        /// @param [out] path Path between tiles
+        /// @param [out] path Path between tile
         /// @return Path was found
         bool ComputePath(const TileCoordinates& start_tile, const TileCoordinates& end_tile, Path& path);
 

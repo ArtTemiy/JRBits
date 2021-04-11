@@ -5,14 +5,18 @@
 #pragma once
 
 #include <TopDownEngine/object/dynamic_object.hpp>
+
+#include <SFML/Window/Event.hpp>
+
 #include <memory>
 
-namespace Engine {
+namespace Engine::Controller {
     /// Class decide what to do
-    class Controller {
+    class IController {
+    protected:
         DynamicObject *object_ptr_;
     public:
-        explicit Controller(DynamicObject *object_ptr = nullptr) : object_ptr_(object_ptr) {}
+        explicit IController() : object_ptr_(nullptr) {}
 
         /// Initialise with slave Object
         void Init(DynamicObject *object_ptr);
@@ -20,8 +24,10 @@ namespace Engine {
         virtual void Tick(double time_delta) = 0;
 
         /// Make some decisions depend on event
-        virtual bool EventProcess() = 0;
+        /// @param [in] event Event to process
+        /// @return Event was processed
+        virtual bool ProcessEvent(const sf::Event& event) = 0;
     };
 
-    using ControllerPtr = std::shared_ptr<Controller>;
+    using ControllerPtr = std::shared_ptr<IController>;
 }

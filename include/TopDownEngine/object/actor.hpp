@@ -11,11 +11,11 @@
 
 namespace Engine {
     /// Actor - dynamic object with controller
-    class Actor : public DynamicObject, Drawable {
-        ControllerPtr controller_;
+    class Actor : public DynamicObject, IDrawable {
+        Controller::ControllerPtr controller_;
 
     public:
-        Actor(DynamicObject object, ControllerPtr controller)
+        Actor(DynamicObject object, Controller::ControllerPtr controller)
                 : DynamicObject(std::move(object)),
                   controller_(std::move(controller)) {
             controller_->Init(this);

@@ -13,26 +13,22 @@ add_subdirectory("deps/gtest")
 set(WITH_GFLAGS false)
 add_subdirectory("deps/glog")
 
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
 # ENGINE LIBRARY
-set(HEADER_LIST
-        include/TopDownEngine/core.hpp
-        include/TopDownEngine/drawable/drawable.hpp
-        include/TopDownEngine/map.hpp
-        include/TopDownEngine/controller/controller.hpp
-        include/TopDownEngine/object/dynamic_object.hpp
-        include/TopDownEngine/object/actor.hpp include/TopDownEngine/world.hpp)
+file(GLOB src_files
+        src/*)
 
 add_library(top_down_engine
-        ${HEADER_LIST}
         src/core.cpp
         src/drawable/drawable.cpp
-        src/map.cpp
+        src/map/map.cpp
         src/object/dynamic_object.cpp
         src/controller/controller.cpp
         src/object/dynamic_object.cpp
-        src/object/actor.cpp src/world.cpp)
+        src/object/actor.cpp
+        src/world.cpp
+        src/controller/controller_player.cpp
+        src/physics/vector.cpp
+        src/map/game_tile.cpp src/map/i_tile.cpp)
 
 target_link_libraries(top_down_engine ${SFML_LIB})
 target_include_directories(top_down_engine PUBLIC include)
@@ -41,4 +37,3 @@ target_link_libraries(top_down_engine glog)
 
 # TESTS
 add_subdirectory(tests)
-target_link_libraries(tests gtest gtest_main)
