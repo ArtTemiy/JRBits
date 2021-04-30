@@ -24,6 +24,11 @@ namespace Engine::Controller {
         };
 
     private:
+    public:
+        explicit PlayerController(DynamicObject &object);
+
+    private:
+
         /// Key bindings for actions
         static std::unordered_map<sf::Keyboard::Key, Actions> key_bindings;
 
@@ -31,8 +36,6 @@ namespace Engine::Controller {
         static const std::unordered_map<Actions, MovingDirection> moving_directions;
 
     public:
-        PlayerController() = default;
-
         /// Process input from keyboard and mouse
         bool ProcessEvent(const sf::Event &event) override;
 

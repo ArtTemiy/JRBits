@@ -18,7 +18,7 @@ namespace Engine {
     class World : public Tickable, Drawable::IDrawable {
         Map map_;
         std::shared_ptr<Drawable::Camera> camera_;
-        std::unordered_set<std::shared_ptr<Actor>> actors_;
+        std::unordered_set<std::shared_ptr<IActor>> actors_;
 
     public:
         using Camera = Drawable::Camera;
@@ -51,7 +51,7 @@ namespace Engine {
             camera_->UpdateView();
         }
 
-        void AddObject(const std::shared_ptr<Actor>& actor) {
+        void AddObject(const std::shared_ptr<IActor>& actor) {
             actors_.insert(actor);
         }
 

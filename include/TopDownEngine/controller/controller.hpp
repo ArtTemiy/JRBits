@@ -14,12 +14,9 @@ namespace Engine::Controller {
     /// Class decide what to do
     class IController {
     protected:
-        DynamicObject *object_ptr_;
+        DynamicObject& object_;
     public:
-        explicit IController() : object_ptr_(nullptr) {}
-
-        /// Initialise with slave Object
-        void Init(DynamicObject *object_ptr);
+        explicit IController(DynamicObject& object) : object_(object) {}
 
         virtual void Tick(double time_delta) = 0;
 

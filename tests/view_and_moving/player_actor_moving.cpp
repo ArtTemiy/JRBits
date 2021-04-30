@@ -14,11 +14,11 @@ int main() {
     game_config.map_source = "rsrc/maps/full_big.map";
 
     auto& world = launcher.Init(game_config);
-    auto player = std::make_shared<Engine::Actor>(
+
+    auto player = std::make_shared<Engine::Actor<Engine::Controller::PlayerController>>(
             Engine::DynamicObject(
                     Engine::Object({2, 2}, {1, 1}),
-                    300),
-            Engine::Controller::ControllerPtr(new Engine::Controller::PlayerController()));
+                    300));
     player->SetDrawable(
             Engine::Drawable::IDrawablePtr(new Engine::Drawable::DrawableStatic(
                     *Engine::LoaderManager::actor_textures_loader.GetData().at("circle"))

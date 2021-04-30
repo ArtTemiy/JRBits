@@ -36,7 +36,7 @@ namespace Engine {
     bool World::ProcessEvent(sf::Event &event) {
         bool event_captured = false;
         for (auto& actor : actors_) {
-            event_captured|=actor->GetController()->ProcessEvent(event);
+            event_captured|=actor->GetController().ProcessEvent(event);
         }
 
         event_captured |= true;
