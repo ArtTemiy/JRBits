@@ -9,4 +9,12 @@ namespace Engine {
         controller_->Tick(time_delta);
         DynamicObject::Tick(time_delta);
     }
+
+    void Actor::Draw(const Coordinates &coordinates, Drawable::Camera &camera) {
+        drawable_->Draw(coordinates, camera);
+    }
+
+    bool ActorTextureLoader::LoadData() {
+        return false;
+    }
 }

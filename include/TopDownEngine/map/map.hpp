@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#include <TopDownEngine/core.hpp>
-#include <TopDownEngine/map/game_tile.h>
+#include <TopDownEngine/core/core.hpp>
+#include <TopDownEngine/map/game_tile.hpp>
 
 #include <vector>
 #include <list>

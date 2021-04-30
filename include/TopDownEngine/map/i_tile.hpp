@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include <TopDownEngine/core.hpp>
+#include <TopDownEngine/core/core.hpp>
 
 namespace Engine{
 

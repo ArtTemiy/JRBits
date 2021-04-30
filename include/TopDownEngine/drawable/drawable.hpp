@@ -4,13 +4,19 @@
 
 #pragma once
 
-#include <TopDownEngine/core.hpp>
+#include <TopDownEngine/core/core.hpp>
 #include <SFML/Graphics.hpp>
 #include <utility>
 
 namespace Engine::Drawable {
+
+    /// Camera for world. Only objects that are inside camera borders
+    /// will be drawn on the screen
     class Camera : public Tickable {
+        /// Game window
         sf::RenderWindow& window_;
+
+        /// View to set
         sf::View view_;
 
     public:
@@ -29,6 +35,7 @@ namespace Engine::Drawable {
             window_.setView(view_);
         }
 
+        /// Draws sprite in given coordinates
         void DrawSprite(sf::Sprite& sprite, const Coordinates& coordinates);
 
         void Tick(double time_delta) override {
@@ -37,15 +44,25 @@ namespace Engine::Drawable {
     };
 
     class IDrawable {
+    public:
+        // TODO - change signatre to void(Camera& camera)
         virtual void Draw(const Coordinates& coordinates, Camera& camera) = 0;
 
         virtual void SetSize(uint height, uint width) = 0;
     };
 
+    using IDrawablePtr = std::shared_ptr<IDrawable>;
+
     class DrawableStatic : public IDrawable {
         sf::Sprite sprite_;
     public:
-        void LoadSprite(sf::Texture& texture) {
+        DrawableStatic() {}
+
+        DrawableStatic(const sf::Texture& texture) {
+            LoadSprite(texture);
+        }
+
+        void LoadSprite(const sf::Texture& texture) {
             sprite_.setTexture(texture);
         }
 
@@ -81,6 +98,7 @@ namespace Engine::Drawable {
 
         const sf::Sprite& GetSprite() const;
 
+        /// Set flipbook to initial state
         void Reset();
 
         void Tick(double time_delta) override;

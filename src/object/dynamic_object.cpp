@@ -11,25 +11,32 @@ namespace Engine {
     }
 
     void DynamicObject::SetMovingDirection(const MovingDirection &new_moving_direction) {
-        auto new_moving_direction_norm = std::sqrt(
-                new_moving_direction[0] * new_moving_direction[0] +
-                new_moving_direction[1] * new_moving_direction[1]
-        );
-        moving_direction_ = {
-                new_moving_direction[0] / new_moving_direction_norm,
-                new_moving_direction[1] / new_moving_direction_norm
-        };
+        moving_direction_ = new_moving_direction;
     }
 
     void DynamicObject::Tick(double time_delta) {
         const auto &coordinates = Object::GetCoordinates();
+        NormalizeMovingDirection();
         Object::SetCoordinates({
-                coordinates[0] + max_velocity_ * time_delta * moving_direction_[0],
-                coordinates[1] + max_velocity_ * time_delta * moving_direction_[1],
+                coordinates[0] + velocity_ * time_delta * moving_direction_[0],
+                coordinates[1] + velocity_ * time_delta * moving_direction_[1],
         });
     }
 
     void DynamicObject::AddMovingDirection(const MovingDirection &new_moving_direction) {
         moving_direction_ = moving_direction_ + new_moving_direction;
+    }
+
+    void DynamicObject::NormalizeMovingDirection() {
+        auto moving_direction_norm = std::sqrt(
+                std::pow(moving_direction_[0], 2) +
+                std::pow(moving_direction_[1], 2)
+        );
+        if (moving_direction_norm != 0) {
+            moving_direction_ = {
+                    moving_direction_[0] / moving_direction_norm,
+                    moving_direction_[1] / moving_direction_norm
+            };
+        };
     }
 }

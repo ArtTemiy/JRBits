@@ -3,7 +3,8 @@
 //
 
 #include <TopDownEngine/launcher/launcher.hpp>
-#include <TopDownEngine/utils/fps_counter.h>
+#include <TopDownEngine/utils/fps_counter.hpp>
+#include <TopDownEngine/utils/display_logger.hpp>
 
 #include <SFML/Graphics.hpp>
 #include <glog/logging.h>
@@ -16,11 +17,11 @@ namespace Engine::Launcher {
 
         // loading resources
         LOG(INFO) << "Loading data";
-        Engine::GameTilesTextureLoader::LoadData();
+        Engine::LoaderManager::LoadData();
 
         // Init Game
         LOG(INFO) << "Initializing game...";
-        Engine::Map map = Engine::Map::LoadMapFromFile("rsrc/maps/river_small.map");
+        Engine::Map map = Engine::Map::LoadMapFromFile(config.map_source);
         world_.SetMap(map);
 
         LOG(INFO) << "ok";
@@ -30,7 +31,8 @@ namespace Engine::Launcher {
 
     int Launcher::Run() {
         const uint kFPS = config_.kFPS;
-        const uint kMsPF = 1000 / kFPS;
+        /// seconds per frame
+        const double kSPF = 1. / static_cast<double>(kFPS);
 
         // init window
         LOG(INFO) << "Creating window...";
@@ -41,9 +43,9 @@ namespace Engine::Launcher {
 
         LOG(INFO) << "Additional utilities initialization...";
         sf::Clock clock;
-        Engine::Utils::FPSCounter fps_counter(window_, true);
+        Engine::Utils::DisplayLoger::Init(&window_, true);
+        Engine::Utils::FPSCounter::Init(true);
         LOG(INFO) << "ok";
-
         LOG(INFO) << "";
         LOG(INFO) << "Running...";
 
@@ -56,19 +58,22 @@ namespace Engine::Launcher {
                 if (event.type == sf::Event::Closed) {
                     window_.close();
                     continue;
+                } else {
+                    world_.ProcessEvent(event);
                 }
             }
 
-            world_.Tick(kMsPF);
+            world_.Tick(kSPF);
 
             // Drawing
             window_.clear();
             world_.Draw();
-            fps_counter.ShowFps(clock.getElapsedTime());
+            Engine::Utils::FPSCounter::WriteFps(clock.getElapsedTime());
+            Engine::Utils::DisplayLoger::Show();
             window_.display();
 
             // Frame
-            sf::sleep(std::max(sf::Time::Zero, sf::milliseconds(kMsPF) - clock.getElapsedTime()));
+            sf::sleep(std::max(sf::Time::Zero, sf::milliseconds(static_cast<int32_t>(kSPF * 1000)) - clock.getElapsedTime()));
         }
         return 0;
     }

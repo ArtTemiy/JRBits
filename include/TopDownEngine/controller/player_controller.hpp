@@ -9,8 +9,12 @@
 #include <unordered_map>
 
 namespace Engine::Controller {
+
+    /// Controller for player character
+    /// Processes moving and moves object
     class PlayerController : public IController {
     public:
+        /// Possible actions
         enum Actions {
             kGoUp,
             kGoDown,
@@ -20,16 +24,18 @@ namespace Engine::Controller {
         };
 
     private:
+        /// Key bindings for actions
         static std::unordered_map<sf::Keyboard::Key, Actions> key_bindings;
+
+        /// actions bindings to moving directions
         static const std::unordered_map<Actions, MovingDirection> moving_directions;
-
-        void RunActionKeyPressed(Actions action);
-
-        void RunActionKeyReleased(Actions action);
 
     public:
         PlayerController() = default;
 
+        /// Process input from keyboard and mouse
         bool ProcessEvent(const sf::Event &event) override;
+
+        void Tick(double time_delta) override {}
     };
 }

@@ -4,9 +4,10 @@
 
 #pragma once
 
-#include <TopDownEngine/core.hpp>
+#include <TopDownEngine/core/core.hpp>
 #include <TopDownEngine/drawable/drawable.hpp>
-#include <TopDownEngine/map/i_tile.h>
+#include <TopDownEngine/map/i_tile.hpp>
+#include <TopDownEngine/core/loader_maneger.hpp>
 
 #include <SFML/Graphics.hpp>
 
@@ -45,19 +46,9 @@ namespace Engine {
     };
 
     class GameTilesTextureLoader {
-        static bool data_loaded;
-        static std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures;
         static std::unordered_map<char, std::string> bindings;
 
     public:
-        static bool GetDataLoaded() {
-            return data_loaded;
-        }
-
-        static bool LoadData();
-
-        static const std::unordered_map<std::string, std::shared_ptr<sf::Texture>>& GetTextures();
-
         static std::shared_ptr<GameTile> MakeTile(char c);
     };
 }

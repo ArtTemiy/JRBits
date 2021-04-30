@@ -9,7 +9,7 @@
 #include <array>
 
 namespace Engine {
-    using uint = uint32_t;
+    using uint = uint64_t;
 
     /// Class with tick function that called every frame
     class Tickable {

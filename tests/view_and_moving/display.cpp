@@ -10,7 +10,7 @@
 int main() {
     Engine::Launcher::LauncherConfig game_config;
     Engine::Launcher::Launcher launcher;
-    game_config.map_source = "rsrc/maps/river_small.map";
+    game_config.map_source = "rsrc/maps/3types_tiles.map";
 
     auto& world = launcher.Init(game_config);
 

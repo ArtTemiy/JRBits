@@ -14,3 +14,10 @@ add_executable(display_test
 target_link_libraries(display_test
         top_down_engine
         ${SFML_LIB})
+
+add_executable(player_actor_moving_test
+        view_and_moving/player_actor_moving.cpp)
+
+target_link_libraries(player_actor_moving_test
+        top_down_engine
+        ${SFML_LIB})

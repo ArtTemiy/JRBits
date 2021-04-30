@@ -25,7 +25,7 @@ namespace Engine::Controller {
 
         /// Make some decisions depend on event
         /// @param [in] event Event to process
-        /// @return Event was processed
+        /// @return Event was processed and shouldn't be thrown further
         virtual bool ProcessEvent(const sf::Event& event) = 0;
     };
 

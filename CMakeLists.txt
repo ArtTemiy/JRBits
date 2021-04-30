@@ -18,7 +18,7 @@ file(GLOB src_files
         src/*)
 
 add_library(top_down_engine
-        src/core.cpp
+        src/core/core.cpp
         src/drawable/drawable.cpp
         src/map/map.cpp
         src/object/dynamic_object.cpp
@@ -26,9 +26,13 @@ add_library(top_down_engine
         src/object/dynamic_object.cpp
         src/object/actor.cpp
         src/world.cpp
-        src/controller/controller_player.cpp
+        src/controller/player_controller.cpp
         src/physics/vector.cpp
-        src/map/game_tile.cpp src/map/i_tile.cpp src/launcher/launcher.cpp)
+        src/map/game_tile.cpp
+        src/map/i_tile.cpp
+        src/launcher/launcher.cpp
+        src/core/loader.cpp
+        src/core/loader_manager.cpp)
 
 target_link_libraries(top_down_engine ${SFML_LIB})
 target_include_directories(top_down_engine PUBLIC include)
