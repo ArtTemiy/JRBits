@@ -7,7 +7,11 @@
 #include <glog/logging.h>
 
 namespace Engine {
-    uint GameTile::tile_size = 100;
+    Size GameTile::tile_size = {1, 1};
+
+    void GameTile::Draw(Drawable::ICamera &camera) {
+        DrawableStatic::Draw(camera);
+    }
 
     std::unordered_map<char, std::string> GameTilesTextureLoader::bindings = {
             {'.', "grass"},
@@ -21,7 +25,7 @@ namespace Engine {
 
         auto tile = std::make_shared<GameTile>();
         tile->LoadSprite(*textures.at(bindings.at(c)));
-        tile->SetSize(GameTile::GetTileSize(), GameTile::GetTileSize());
+        tile->SetSize(GameTile::GetTileSize());
         return tile;
     }
 }

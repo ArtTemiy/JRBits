@@ -5,8 +5,9 @@
 #include <TopDownEngine/object/actor.hpp>
 
 namespace Engine {
-    void IActor::Draw(const Coordinates &coordinates, Drawable::Camera &camera) {
-        drawable_->Draw(coordinates, camera);
+    void IActor::Draw(Drawable::ICamera &camera) {
+        drawable_->SetPosition(GetCoordinates());
+        drawable_->Draw(camera);
     }
 
     bool ActorTextureLoader::LoadData() {

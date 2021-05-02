@@ -5,6 +5,7 @@
 #include <TopDownEngine/launcher/launcher.hpp>
 #include <TopDownEngine/utils/fps_counter.hpp>
 #include <TopDownEngine/utils/display_logger.hpp>
+#include <TopDownEngine/controller/null_controller.hpp>
 
 #include <SFML/Graphics.hpp>
 #include <glog/logging.h>
@@ -38,7 +39,9 @@ namespace Engine::Launcher {
         LOG(INFO) << "Creating window...";
         window_.create(sf::VideoMode(config_.window_width, config_.window_height), "Game.");
 
-        std::shared_ptr<Engine::Drawable::Camera> camera(new Engine::Drawable::Camera(window_));
+        auto camera = std::make_shared<
+                Engine::Drawable::Camera<Engine::Controller::NullController>>(
+                        window_, ToVector(world_.GetMap().GetSize()) / 2);
         world_.SetCamera(camera);
 
         LOG(INFO) << "Additional utilities initialization...";

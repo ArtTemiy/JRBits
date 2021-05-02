@@ -3,31 +3,35 @@
 //
 
 #include <TopDownEngine/drawable/drawable.hpp>
+#include <TopDownEngine/drawable/drawable_config.hpp>
 #include <TopDownEngine/physics/vector.hpp>
 
 namespace Engine::Drawable {
-    void SetSpriteSize(sf::Sprite& sprite, uint height, uint width) {
+    void SetSpriteSize(sf::Sprite& sprite, const Size& size) {
         sprite.setScale(
-                static_cast<float>(width) / sprite.getTexture()->getSize().x,
-                static_cast<float>(height) / sprite.getTexture()->getSize().y
+                static_cast<float>(size[1]) / sprite.getTexture()->getSize().x,
+                static_cast<float>(size[0]) / sprite.getTexture()->getSize().y
         );
     }
 
-    void Camera::DrawSprite(sf::Sprite& sprite, const Coordinates& coordinates) {
-        sprite.setPosition(coordinates[1], coordinates[0]);
-        window_.draw(sprite);
+    void SetSpritePosition(sf::Sprite& sprite, const Coordinates& coordinates) {
+        sprite.setPosition(coordinates[1] * DrawableConfig::pixels_per_unit, coordinates[0] * DrawableConfig::pixels_per_unit);
     }
 
-    void FlipBook::Draw(const Engine::Coordinates &coordinates, Camera &camera) {
-        camera.DrawSprite(sprites_[current_sprite_], coordinates);
+    void FlipBook::Draw(ICamera &camera) {
+        camera.DrawSprite(sprites_[current_sprite_]);
     }
 
-    void DrawableStatic::Draw(const Coordinates &coordinates, Camera& camera) {
-        camera.DrawSprite(sprite_, coordinates);
+    void DrawableStatic::Draw(ICamera& camera) {
+        camera.DrawSprite(sprite_);
     }
 
-    void DrawableStatic::SetSize(uint height, uint width) {
-        SetSpriteSize(sprite_, height, width);
+    void DrawableStatic::SetSize(const Size& size) {
+        SetSpriteSize(sprite_, size * DrawableConfig::pixels_per_unit);
+    }
+
+    void DrawableStatic::SetPosition(const Coordinates &coordinates) {
+        SetSpritePosition(sprite_, coordinates);
     }
 
     const sf::Sprite& FlipBook::GetSprite() const {
@@ -47,10 +51,14 @@ namespace Engine::Drawable {
         }
     }
 
-    void FlipBook::SetSize(uint height, uint width) {
+    void FlipBook::SetSize(const Size& size) {
         for (auto& sprite : sprites_) {
-            SetSpriteSize(sprite, height, width);
+            SetSpriteSize(sprite, size);
         }
+    }
+
+    void FlipBook::SetPosition(const Coordinates &coordinates) {
+        SetSpritePosition(sprites_[current_sprite_], coordinates);
     }
 }
 

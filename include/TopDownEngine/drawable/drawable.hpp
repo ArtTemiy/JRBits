@@ -5,60 +5,40 @@
 #pragma once
 
 #include <TopDownEngine/core/core.hpp>
+#include "camera.hpp"
+
 #include <SFML/Graphics.hpp>
+
 #include <utility>
 
 namespace Engine::Drawable {
-
-    /// Camera for world. Only objects that are inside camera borders
-    /// will be drawn on the screen
-    class Camera : public Tickable {
-        /// Game window
-        sf::RenderWindow& window_;
-
-        /// View to set
-        sf::View view_;
-
-    public:
-        explicit Camera(sf::RenderWindow &window)
-        : window_(window),
-          view_(sf::Vector2f(0, 0), sf::Vector2f(
-                  window_.getSize().x, window_.getSize().y)) {
-            UpdateView();
-        }
-
-        sf::View& GetView() {
-            return view_;
-        }
-
-        void UpdateView() {
-            window_.setView(view_);
-        }
-
-        /// Draws sprite in given coordinates
-        void DrawSprite(sf::Sprite& sprite, const Coordinates& coordinates);
-
-        void Tick(double time_delta) override {
-            UpdateView();
-        }
-    };
-
+    /// Interface for object that can be displayed on the screen
     class IDrawable {
     public:
-        // TODO - change signatre to void(Camera& camera)
-        virtual void Draw(const Coordinates& coordinates, Camera& camera) = 0;
-
-        virtual void SetSize(uint height, uint width) = 0;
+        /// Draw object on the screen using camera
+        /// @param [in] camera - camera that will draw the object
+        virtual void Draw(ICamera& camera) = 0;
     };
 
     using IDrawablePtr = std::shared_ptr<IDrawable>;
 
-    class DrawableStatic : public IDrawable {
+    /// Drawable component - component that owns resources
+    /// and can edit them
+    class IDrawableComponent : public IDrawable {
+    public:
+        virtual void SetSize(const Size& size) = 0;
+
+        virtual void SetPosition(const Coordinates &coordinates) = 0;
+    };
+
+    using IDrawableComponentPtr = std::shared_ptr<IDrawableComponent>;
+
+    class DrawableStatic : public IDrawableComponent {
         sf::Sprite sprite_;
     public:
-        DrawableStatic() {}
+        DrawableStatic() = default;
 
-        DrawableStatic(const sf::Texture& texture) {
+        explicit DrawableStatic(const sf::Texture& texture) {
             LoadSprite(texture);
         }
 
@@ -74,12 +54,14 @@ namespace Engine::Drawable {
             return sprite_;
         }
 
-        void Draw(const Coordinates &coordinates, Camera& camera) override;
+        void Draw(ICamera& camera) override;
 
-        void SetSize(uint height, uint width) override;
+        void SetSize(const Size& size) override;
+
+        void SetPosition(const Coordinates &coordinates) override;
     };
 
-    class FlipBook : public Tickable, IDrawable {
+    class FlipBook : public Tickable, IDrawableComponent {
         std::vector<sf::Sprite> sprites_;
         std::vector<double> times_;
         double time_left_;
@@ -103,8 +85,10 @@ namespace Engine::Drawable {
 
         void Tick(double time_delta) override;
 
-        void Draw(const Engine::Coordinates &coordinates, Engine::Drawable::Camera& camera) override;
+        void Draw(ICamera& camera) override;
 
-        void SetSize(uint height, uint width) override;
+        void SetSize(const Size& size) override;
+
+        void SetPosition(const Coordinates &coordinates) override;
     };
 }

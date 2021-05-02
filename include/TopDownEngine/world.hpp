@@ -15,14 +15,14 @@
 #include <memory>
 
 namespace Engine {
-    class World : public Tickable, Drawable::IDrawable {
+    class World : public Tickable {
+        using Camera = Drawable::ICamera;
+
         Map map_;
-        std::shared_ptr<Drawable::Camera> camera_;
+        std::shared_ptr<Camera> camera_;
         std::unordered_set<std::shared_ptr<IActor>> actors_;
 
     public:
-        using Camera = Drawable::Camera;
-        
         World() : map_(0, 0), camera_(nullptr) {}
 
         const Map& GetMap() const {
@@ -33,8 +33,8 @@ namespace Engine {
             map_ = map;
             if (camera_) {
                 camera_->GetView().setCenter(
-                        map_.GetSize()[0] * GameTile::GetTileSize() / 2,
-                        map_.GetSize()[1] * GameTile::GetTileSize() / 2);
+                        map_.GetSize()[0] * GameTile::GetTileSize()[0] / 2,
+                        map_.GetSize()[1] * GameTile::GetTileSize()[1] / 2);
                 camera_->UpdateView();
             }
         }
@@ -46,8 +46,8 @@ namespace Engine {
         void SetCamera(const std::shared_ptr<Camera> &camera) {
             camera_ = camera;
             camera_->GetView().setCenter(
-                    map_.GetSize()[0] * GameTile::GetTileSize() / 2,
-                    map_.GetSize()[1] * GameTile::GetTileSize() / 2);
+                    map_.GetSize()[0] * GameTile::GetTileSize()[0] / 2,
+                    map_.GetSize()[1] * GameTile::GetTileSize()[1] / 2);
             camera_->UpdateView();
         }
 
@@ -55,11 +55,7 @@ namespace Engine {
             actors_.insert(actor);
         }
 
-        void Draw(const Coordinates &coordinates, Camera &camera) override {}
-
         void Draw();
-
-        void SetSize(uint height, uint width) override {}
 
         void Tick(double time_delta) override;
 

@@ -27,7 +27,7 @@ namespace Engine {
 
     private:
         /// size of all tile
-        static uint tile_size;
+        static Size tile_size;
 
         Type type_ = kNone;
 
@@ -43,6 +43,8 @@ namespace Engine {
         void SetType(Type type) {
             type_ = type;
         }
+
+        void Draw(Drawable::ICamera &camera) override;
     };
 
     class GameTilesTextureLoader {

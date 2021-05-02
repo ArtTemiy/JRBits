@@ -9,20 +9,13 @@
 namespace Engine {
 
     void World::Draw() {
-//        for (auto [coordinates, tile] : map_) {
-        for (auto it : map_) {
-            const auto& [coordinates, tile] = it;
-            tile->Draw(
-            {
-                static_cast<double>(coordinates[0] * GameTile::GetTileSize()),
-                static_cast<double>(coordinates[1] * GameTile::GetTileSize())
-                },
-            *camera_
-            );
+        for (const auto& [coordinates, tile] : map_) {
+            tile->SetPosition(ToVector(coordinates));
+            tile->Draw(*camera_);
         }
 
         for (auto& actor : actors_) {
-            actor->Draw(actor->GetCoordinates(), *camera_);
+            actor->Draw(*camera_);
         }
     }
 

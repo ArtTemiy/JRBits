@@ -16,25 +16,22 @@ namespace Engine {
 
     /// Actor interface
     class IActor : public DynamicObject, Drawable::IDrawable {
-        Drawable::IDrawablePtr drawable_;
+        Drawable::IDrawableComponentPtr drawable_;
     public:
         explicit IActor(DynamicObject object) : DynamicObject(std::move(object)) {}
 
-        Drawable::IDrawablePtr &GetDrawable() {
+        auto& GetDrawable() {
             return drawable_;
         }
 
-        void SetDrawable(const Drawable::IDrawablePtr &drawable) {
+        void SetDrawable(const Drawable::IDrawableComponentPtr &drawable) {
             drawable_ = drawable;
-        }
-
-        void SetSize(uint height, uint width) override {
-            drawable_->SetSize(height, width);
+            drawable_->SetSize(DynamicObject::GetSize());
         }
 
         virtual Controller::IController& GetController() = 0;
 
-        void Draw(const Coordinates &coordinates, Drawable::Camera &camera) override;
+        void Draw(Drawable::ICamera &camera) override;
     };
 
     /// Actor - dynamic object with controller, given via template

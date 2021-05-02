@@ -28,3 +28,11 @@ Vector operator*(const Vector& v1, double c);
 Vector operator/(const Vector& v1, double c);
 
 sf::Vector2f ToSFVector2f(const Vector& v);
+
+template<class T>
+Vector ToVector(const T& vector) {
+    return {
+        static_cast<double>(vector[0]),
+        static_cast<double>(vector[1])
+    };
+}

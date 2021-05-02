@@ -20,7 +20,13 @@ namespace Engine {
     public:
         DynamicObject(Object object, double max_velocity)
                 : Object(object),
-                  velocity_(max_velocity) {}
+                  velocity_(max_velocity) {
+        }
+
+        DynamicObject(const Coordinates &coordinates, const Size &size, double velocity)
+        : Object(coordinates, size),
+          velocity_(velocity) {
+        }
 
         MovingDirection GetMovingDirection() const;
 
@@ -29,6 +35,14 @@ namespace Engine {
         void AddMovingDirection(const MovingDirection& new_moving_direction);
 
         void Tick(double time_delta) override;
+
+        double GetVelocity() const {
+            return velocity_;
+        }
+
+        void SetVelocity(double velocity) {
+            velocity_ = velocity;
+        }
 
     private:
         /// Changes moving_direction, so it has norm equal to 1
