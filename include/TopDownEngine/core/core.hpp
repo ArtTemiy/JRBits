@@ -7,6 +7,7 @@
 #include <TopDownEngine/physics/vector.hpp>
 
 #include <array>
+#include <optional>
 
 namespace Engine {
     using uint = uint64_t;
@@ -37,5 +38,11 @@ namespace Engine {
         void SetCoordinates(const Coordinates& new_coordinates);
 
         Size GetSize() const;
+
+        bool Intersects(const Object& object);
+
+        std::optional<Object> Intersection(const Object& object);
     };
+
+    std::ostream& operator<<(std::ostream& out, const Object& obj);
 }

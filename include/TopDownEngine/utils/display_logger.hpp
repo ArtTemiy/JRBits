@@ -5,7 +5,8 @@
 #pragma once
 #include <TopDownEngine/core/core.hpp>
 
-#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics.hpp>
+#include <glog/logging.h>
 
 #include <sstream>
 
@@ -15,7 +16,7 @@ namespace Engine::Utils {
     /// Class "prints" text to the screen
     /// Can be used to see some informaion that should be displayed/updated
     /// every frame. Log draws last, so it is always seen.
-    class DisplayLoger {
+    class DisplayLogger {
         /// stream with the content
         static std::stringstream content_;
 
@@ -56,11 +57,6 @@ namespace Engine::Utils {
             return content_;
         }
     };
-
-    std::stringstream DisplayLoger::content_{};
-    bool DisplayLoger::display_ = false;
-    sf::Font DisplayLoger::font_{};
-    sf::RenderWindow* DisplayLoger::window_ = nullptr;
 }
 
-#define DSPLOG Engine::Utils::DisplayLoger::GetStream()
+#define DSPLOG Engine::Utils::DisplayLogger::GetStream()

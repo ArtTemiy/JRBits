@@ -4,35 +4,41 @@
 
 #pragma once
 
-#include <array>
 #include <SFML/System/Vector2.hpp>
 
-using Vector = std::array<double, 2>;
+#include <array>
+#include <iostream>
 
-Vector operator-(const Vector& v);
+namespace Engine {
+    using Vector = std::array<double, 2>;
 
-Vector& operator+=(Vector& v1, const Vector& v2);
+    Vector operator-(const Vector& v);
 
-Vector& operator-=(Vector& v1, const Vector& v2);
+    Vector& operator+=(Vector& v1, const Vector& v2);
 
-Vector operator+(const Vector& v1, const Vector& v2);
+    Vector& operator-=(Vector& v1, const Vector& v2);
 
-Vector operator-(const Vector& v1, const Vector& v2);
+    Vector operator+(const Vector& v1, const Vector& v2);
 
-Vector& operator*=(Vector& v1, double c);
+    Vector operator-(const Vector& v1, const Vector& v2);
 
-Vector& operator/=(Vector& v1, double c);
+    Vector& operator*=(Vector& v1, double c);
 
-Vector operator*(const Vector& v1, double c);
+    Vector& operator/=(Vector& v1, double c);
 
-Vector operator/(const Vector& v1, double c);
+    Vector operator*(const Vector& v1, double c);
 
-sf::Vector2f ToSFVector2f(const Vector& v);
+    Vector operator/(const Vector& v1, double c);
 
-template<class T>
-Vector ToVector(const T& vector) {
-    return {
-        static_cast<double>(vector[0]),
-        static_cast<double>(vector[1])
-    };
+    std::ostream& operator<<(std::ostream& out, const Vector& vector);
+
+    sf::Vector2f ToSFVector2f(const Vector& v);
+
+    template<class T>
+    Vector ToVector(const T& vector) {
+        return {
+                static_cast<double>(vector[0]),
+                static_cast<double>(vector[1])
+        };
+    }
 }

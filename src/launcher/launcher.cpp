@@ -46,7 +46,7 @@ namespace Engine::Launcher {
 
         LOG(INFO) << "Additional utilities initialization...";
         sf::Clock clock;
-        Engine::Utils::DisplayLoger::Init(&window_, true);
+        Engine::Utils::DisplayLogger::Init(&window_, true);
         Engine::Utils::FPSCounter::Init(true);
         LOG(INFO) << "ok";
         LOG(INFO) << "";
@@ -72,7 +72,7 @@ namespace Engine::Launcher {
             window_.clear();
             world_.Draw();
             Engine::Utils::FPSCounter::WriteFps(clock.getElapsedTime());
-            Engine::Utils::DisplayLoger::Show();
+            Engine::Utils::DisplayLogger::Show();
             window_.display();
 
             // Frame

@@ -20,7 +20,9 @@ namespace Engine {
 
         Map map_;
         std::shared_ptr<Camera> camera_;
-        std::unordered_set<std::shared_ptr<IActor>> actors_;
+        std::unordered_set<std::shared_ptr<IActor>> static_actors_;
+        std::unordered_set<std::shared_ptr<IActor>> dynamic_actors_;
+        std::unordered_set<std::shared_ptr<IActor>> non_collision_actors_;
 
     public:
         World() : map_(0, 0), camera_(nullptr) {}
@@ -51,9 +53,7 @@ namespace Engine {
             camera_->UpdateView();
         }
 
-        void AddObject(const std::shared_ptr<IActor>& actor) {
-            actors_.insert(actor);
-        }
+        void AddObject(const std::shared_ptr<IActor>& actor);
 
         void Draw();
 
