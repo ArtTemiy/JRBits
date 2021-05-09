@@ -23,6 +23,8 @@ namespace Engine {
         for (auto& actor : dynamic_actors_) {
             actor->Draw(*camera_);
         }
+
+        interface_.Draw(*camera_);
     }
 
     void World::Tick(double time_delta) {
@@ -37,6 +39,7 @@ namespace Engine {
             actor->Tick(time_delta);
         }
 
+        // process collisions
         for (auto& dynamic_actor : dynamic_actors_) {
             for(auto& static_actor : static_actors_) {
                 ProcessCollision(*dynamic_actor, *static_actor);
@@ -46,10 +49,14 @@ namespace Engine {
         // tick camera
         camera_->Tick(time_delta);
 
-        // process collisions
+        interface_.Tick(time_delta);
     }
 
     bool World::ProcessEvent(sf::Event &event) {
+        if (interface_.ProcessEvent(event)) {
+            return true;
+        }
+
         bool event_captured = false;
         for (auto& actor : non_collision_actors_) {
             event_captured|=actor->GetController().ProcessEvent(event);
@@ -59,6 +66,9 @@ namespace Engine {
         }
         for (auto& actor : dynamic_actors_) {
             event_captured|=actor->GetController().ProcessEvent(event);
+        }
+        if (event_captured) {
+            return true;
         }
 
         event_captured |= true;

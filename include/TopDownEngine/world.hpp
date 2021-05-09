@@ -8,6 +8,7 @@
 #include <TopDownEngine/drawable/drawable.hpp>
 #include <TopDownEngine/map/map.hpp>
 #include <TopDownEngine/object/actor.hpp>
+#include <TopDownEngine/interface/interface.hpp>
 
 #include <vector>
 #include <unordered_set>
@@ -23,9 +24,12 @@ namespace Engine {
         std::unordered_set<std::shared_ptr<IActor>> static_actors_;
         std::unordered_set<std::shared_ptr<IActor>> dynamic_actors_;
         std::unordered_set<std::shared_ptr<IActor>> non_collision_actors_;
+        Interface::Interface<World> interface_;
 
     public:
-        World() : map_(0, 0), camera_(nullptr) {}
+        World() : map_(0, 0), camera_(nullptr) {
+            interface_.SetParent(this);
+        }
 
         const Map& GetMap() const {
             return map_;
