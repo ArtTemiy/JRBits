@@ -4,7 +4,6 @@
 
 #include <TopDownEngine/drawable/drawable.hpp>
 #include <TopDownEngine/drawable/drawable_config.hpp>
-#include <TopDownEngine/physics/vector.hpp>
 
 namespace Engine::Drawable {
     void SetSpriteSize(sf::Sprite& sprite, const Size& size) {

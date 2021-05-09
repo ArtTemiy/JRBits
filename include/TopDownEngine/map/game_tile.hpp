@@ -15,6 +15,8 @@
 #include <memory>
 
 namespace Engine {
+    // TODO - use templates?
+    /// Tile with DrawableComponent
     class GameTile : public Drawable::DrawableStatic, public ITile {
     public:
         enum Type {
@@ -47,6 +49,7 @@ namespace Engine {
         void Draw(Drawable::ICamera &camera) override;
     };
 
+    // TODO - use loader manager
     class GameTilesTextureLoader {
         static std::unordered_map<char, std::string> bindings;
 

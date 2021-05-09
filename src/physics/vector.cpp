@@ -2,7 +2,7 @@
 // Created by Artemiy Shvedov on 02.04.21.
 //
 
-#include <TopDownEngine/physics/vector.hpp>
+#include <TopDownEngine/core/physics/vector.hpp>
 
 namespace Engine {
     Vector operator-(const Vector& v) {

@@ -5,7 +5,6 @@
 #pragma once
 
 #include <TopDownEngine/core/core.hpp>
-#include <TopDownEngine/physics/vector.hpp>
 
 #include <optional>
 
@@ -48,6 +47,7 @@ namespace Engine {
 
         void SetMovingDirection(const MovingDirection& new_moving_direction);
 
+        /// Add moving direction vector
         void AddMovingDirection(const MovingDirection& new_moving_direction);
 
         void Tick(double time_delta) override;

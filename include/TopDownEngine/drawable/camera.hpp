@@ -9,6 +9,7 @@
 namespace Engine::Drawable {
     /// Camera for world. Only objects that are inside camera borders
     /// will be drawn on the screen
+    /// ICamera is a interface but defines all general fields and methods
     class ICamera : public DynamicObject {
         /// Game window
         sf::RenderWindow& window_;
@@ -33,6 +34,7 @@ namespace Engine::Drawable {
         }
     };
 
+    /// Inplementation with controller
     template<class ControllerT>
     class Camera : public ICamera {
         ControllerT controller_;

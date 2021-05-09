@@ -46,7 +46,7 @@ namespace Engine::Launcher {
 
         LOG(INFO) << "Additional utilities initialization...";
         sf::Clock clock;
-        Engine::Utils::DisplayLogger::Init(&window_, true);
+        Engine::Utils::DisplayLogger::Init(&window_, config_.display_logger_show);
         Engine::Utils::FPSCounter::Init(true);
         LOG(INFO) << "ok";
         LOG(INFO) << "";

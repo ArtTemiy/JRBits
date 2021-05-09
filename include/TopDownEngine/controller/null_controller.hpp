@@ -5,10 +5,13 @@
 #include <TopDownEngine/controller/controller.hpp>
 
 namespace Engine::Controller {
-    class NullController : public IController {
+
+    /// Simple controller what do nothing
+    class NullController : public IController<> {
     public:
         explicit NullController(DynamicObject& object) : IController(object) {}
 
+        /// Discards any event
         bool ProcessEvent(const sf::Event &event) override {
             return false;
         }

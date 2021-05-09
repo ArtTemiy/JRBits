@@ -29,6 +29,7 @@ namespace Engine {
             uint row_, column_;
 
         public:
+            /// Iterator for tiles - contains coordinates and tele itself
             Iterator(Map* map, size_t row, size_t column) : map_(map), row_(row), column_(column) {}
 
             bool operator==(const Iterator& other) const {

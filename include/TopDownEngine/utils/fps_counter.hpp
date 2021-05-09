@@ -11,14 +11,17 @@
 #include <glog/logging.h>
 
 namespace Engine::Utils {
+    /// Prints FPS count on the DisplayLog
     class FPSCounter {
         static bool display;
 
     public:
+        /// Initialise counter
         static void Init(bool new_display = false) {
             display = new_display;
         }
 
+        /// Write fps to log
         void static WriteFps(const sf::Time& time_passed) {
             if (display) {
                 DSPLOG << std::min(

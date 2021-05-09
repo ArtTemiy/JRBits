@@ -11,10 +11,14 @@
 #include <memory>
 
 namespace Engine::Controller {
-    /// Class decide what to do
+
+    /// Class that controls actor (decides what to do depending
+    /// on what is happening)
+    template <class ObjectType = DynamicObject>
     class IController {
     protected:
-        DynamicObject& object_;
+        /// object to control
+        ObjectType& object_;
     public:
         explicit IController(DynamicObject& object) : object_(object) {}
 
@@ -26,5 +30,6 @@ namespace Engine::Controller {
         virtual bool ProcessEvent(const sf::Event& event) = 0;
     };
 
-    using ControllerPtr = std::shared_ptr<IController>;
+    template <class ObjectType = DynamicObject>
+    using ControllerPtr = std::shared_ptr<IController<ObjectType>>;
 }

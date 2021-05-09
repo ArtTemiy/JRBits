@@ -41,6 +41,7 @@ namespace Engine::Utils {
             }
         }
 
+        /// Show log on the screen
         static void Show() {
             if (display_) {
                 sf::Text text;

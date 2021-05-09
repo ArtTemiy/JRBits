@@ -15,23 +15,20 @@
 namespace Engine {
 
     /// Actor interface
-    class IActor : public DynamicObject, Drawable::IDrawable {
-        Drawable::IDrawableComponentPtr drawable_;
+    // TODO - think about controller and templates
+    class IActor : public DynamicObject, public Drawable::WithDrawableComponent {
+//        Drawable::IDrawableComponentPtr drawable_;
     public:
-        explicit IActor(DynamicObject object) : DynamicObject(std::move(object)) {}
+        explicit IActor(DynamicObject object)
+        : DynamicObject(std::move(object)),
+          WithDrawableComponent(*static_cast<Object*>(this)){}
 
-        auto& GetDrawable() {
-            return drawable_;
+        virtual Controller::IController<>& GetController() = 0;
+
+        void Tick(double time_delta) override {
+            DynamicObject::Tick(time_delta);
+            WithDrawableComponent::Tick(time_delta);
         }
-
-        void SetDrawable(const Drawable::IDrawableComponentPtr &drawable) {
-            drawable_ = drawable;
-            drawable_->SetSize(DynamicObject::GetSize());
-        }
-
-        virtual Controller::IController& GetController() = 0;
-
-        void Draw(Drawable::ICamera &camera) override;
     };
 
     /// Actor - dynamic object with controller, given via template
@@ -46,7 +43,7 @@ namespace Engine {
                   controller_(*this) {
         }
 
-        Controller::IController& GetController() override {
+        Controller::IController<>& GetController() override {
             return controller_;
         }
 

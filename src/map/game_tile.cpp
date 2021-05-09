@@ -24,7 +24,7 @@ namespace Engine {
             textures = LoaderManager::game_tile_textures_loader.GetData();
 
         auto tile = std::make_shared<GameTile>();
-        tile->LoadSprite(*textures.at(bindings.at(c)));
+        tile->LoadTexture(*textures.at(bindings.at(c)));
         tile->SetSize(GameTile::GetTileSize());
         return tile;
     }

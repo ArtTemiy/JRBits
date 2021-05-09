@@ -13,7 +13,7 @@
 
 namespace Engine::Drawable {
     /// Interface for object that can be displayed on the screen
-    class IDrawable {
+    class IDrawable : public Tickable {
     public:
         /// Draw object on the screen using camera
         /// @param [in] camera - camera that will draw the object
@@ -33,16 +33,47 @@ namespace Engine::Drawable {
 
     using IDrawableComponentPtr = std::shared_ptr<IDrawableComponent>;
 
+    class WithDrawableComponent : IDrawable {
+        Drawable::IDrawableComponentPtr drawable_ = nullptr;
+        Object& object_;
+
+    public:
+        explicit WithDrawableComponent(Object &object) : object_(object) {}
+
+        auto& GetDrawable() {
+            return drawable_;
+        }
+
+        void SetDrawable(const Drawable::IDrawableComponentPtr &drawable) {
+            drawable_ = drawable;
+            drawable_->SetSize(object_.GetSize());
+        }
+
+        void Draw(Drawable::ICamera &camera) override {
+            if (!drawable_) {
+                throw std::runtime_error("No drawable component");
+            }
+            drawable_->SetPosition(object_.GetCoordinates());
+            drawable_->Draw(camera);
+        }
+
+        void Tick(double time_delta) override {
+            drawable_->Tick(time_delta);
+        }
+    };
+
+    /// Static drawable component
+    /// has only one sprite that always displays
     class DrawableStatic : public IDrawableComponent {
         sf::Sprite sprite_;
     public:
         DrawableStatic() = default;
 
-        explicit DrawableStatic(const sf::Texture& texture) {
-            LoadSprite(texture);
+        explicit DrawableStatic(const sf::Texture& texture) : sprite_() {
+            LoadTexture(texture);
         }
 
-        void LoadSprite(const sf::Texture& texture) {
+        void LoadTexture(const sf::Texture& texture) {
             sprite_.setTexture(texture);
         }
 
@@ -59,12 +90,24 @@ namespace Engine::Drawable {
         void SetSize(const Size& size) override;
 
         void SetPosition(const Coordinates &coordinates) override;
+
+        void Tick(double time_delta) override {}
     };
 
-    class FlipBook : public Tickable, IDrawableComponent {
+    /// Set of sprites and times
+    /// Sprite is shown for corresponding time and then changed for the next one
+    /// Sprites are displayed in the loop
+    class FlipBook : public IDrawableComponent {
+        /// Ordered sprites
         std::vector<sf::Sprite> sprites_;
+
+        /// Corresponding times
         std::vector<double> times_;
+
+        /// time left from last sprite change
         double time_left_;
+
+        /// index of current sprite
         size_t current_sprite_;
 
     public:
@@ -73,9 +116,7 @@ namespace Engine::Drawable {
           times_(std::move(times)),
           time_left_(0),
           current_sprite_(0) {
-            if (sprites.size() != times.size()) {
-                throw  std::length_error("Size and sprites lengths arn\'t equal");
-            }
+            assert(sprites.size() == times.size());
         }
 
         const sf::Sprite& GetSprite() const;

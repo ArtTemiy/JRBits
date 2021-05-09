@@ -12,7 +12,7 @@ namespace Engine::Controller {
 
     /// Controller for player character
     /// Processes moving and moves object
-    class PlayerController : public IController {
+    class PlayerController : public IController<> {
     public:
         /// Possible actions
         enum Actions {
