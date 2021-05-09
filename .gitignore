@@ -1,4 +1,4 @@
 build/
-deps/
+TopDownEngine/deps/
 .idea/
 .DS_Store
