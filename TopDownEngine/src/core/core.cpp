@@ -42,6 +42,12 @@ namespace Engine {
             std::pow(std::max(coordinates_[1], object.coordinates_[1]) - std::min(coordinates_[1] + size_[1], object.coordinates_[1] + object.size_[1]), 2)
         );
     }
+
+    bool Object::PointInside(const Coordinates &coordinates) {
+        return coordinates_[0] < coordinates_[0] && coordinates[0] < coordinates_[0] + size_[0] &&
+               coordinates_[1] < coordinates_[1] && coordinates[1] < coordinates_[1] + size_[1];
+    }
+
     std::ostream& operator<<(std::ostream& out, const Object& obj) {
         out << "{ c: " << obj.GetCoordinates() << ", s: " << obj.GetSize() << " }";
         return out;

@@ -31,5 +31,5 @@ namespace Engine::Utils {
         }
     };
 
-    bool FPSCounter::display = false;
+    inline bool FPSCounter::display = false;
 }

@@ -10,11 +10,16 @@
 int main() {
     Engine::Launcher::LauncherConfig game_config;
     Engine::Launcher::Launcher launcher;
-    game_config.map_source = "rsrc/maps/3types_tiles.map";
 
-    auto& world = launcher.Init(game_config);
+    Engine::Level::LevelConfig level_config;
+    level_config.map_source = "rsrc/maps/3types_tiles.map";
 
-    auto return_code = launcher.Run();
+    Engine::Level::Level level;
+    auto& world = level.Init(level_config);
+
+    launcher.Init(game_config);
+
+    auto return_code = launcher.RunLevel(level);
 
     return return_code;
 }

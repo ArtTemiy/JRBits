@@ -28,6 +28,11 @@ namespace Engine {
 
         Size GetSize() const;
 
+        /// Returns if the point is inside the object rectangle
+        /// @param [in] coordinates - coordinates of the point
+        /// @returns if the point inside object rectangle
+        bool PointInside(const Coordinates& coordinates);
+
         /// If object intersects with another
         /// @param [in] object - another object
         /// @return if object intersects

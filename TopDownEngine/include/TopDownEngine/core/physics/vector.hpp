@@ -12,6 +12,8 @@
 namespace Engine {
     using Vector = std::array<double, 2>;
 
+    double Norm(const Vector& v);
+
     Vector operator-(const Vector& v);
 
     Vector& operator+=(Vector& v1, const Vector& v2);
@@ -21,6 +23,14 @@ namespace Engine {
     Vector operator+(const Vector& v1, const Vector& v2);
 
     Vector operator-(const Vector& v1, const Vector& v2);
+
+    Vector operator*=(Vector& v1, const Vector& v2);
+
+    Vector operator*(const Vector& v1, const Vector& v2);
+
+    Vector operator/=(Vector& v1, const Vector& v2);
+
+    Vector operator/(const Vector& v1, const Vector& v2);
 
     Vector& operator*=(Vector& v1, double c);
 
@@ -39,6 +49,14 @@ namespace Engine {
         return {
                 static_cast<double>(vector[0]),
                 static_cast<double>(vector[1])
+        };
+    }
+
+    template<class T>
+    Vector ToVector(const sf::Vector2<T>& vector) {
+        return {
+                static_cast<double>(vector.y),
+                static_cast<double>(vector.x)
         };
     }
 }

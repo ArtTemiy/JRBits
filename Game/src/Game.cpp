@@ -1,20 +1,16 @@
 //
-// Created by Artemiy Shvedov on 04.05.21.
+// Created by Artemiy Shvedov on 09.05.21.
 //
 
 #include <TopDownEngine/launcher/launcher.hpp>
-
 #include <TopDownEngine/controller/null_controller.hpp>
 
 int main() {
-    Engine::Launcher::LauncherConfig game_config;
+    Engine::Launcher::LauncherConfig game_config = {};
     Engine::Launcher::Launcher launcher;
+    game_config.map_source = "TopDownEngine/rsrc/maps/full_big.map";
 
-    Engine::Level::LevelConfig level_config;
-    level_config.map_source = "rsrc/maps/full_big.map";
-
-    Engine::Level::Level level("Test level");
-    auto& world = level.Init(level_config);
+    auto& world = launcher.Init(game_config);
 
     auto player = std::make_shared<Engine::Actor<Engine::Controller::PlayerController>>(
             Engine::DynamicObject(
@@ -36,9 +32,7 @@ int main() {
     world.AddObject(player);
     world.AddObject(obj1);
 
-    launcher.Init(game_config);
-
-    auto return_code = launcher.RunLevel(level);
+    auto return_code = launcher.Run();
 
     return return_code;
 }

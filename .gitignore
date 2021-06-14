@@ -2,3 +2,5 @@ build/
 TopDownEngine/deps/
 .idea/
 .DS_Store
+venv/
+Drafts&WorkingDocuments/

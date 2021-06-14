@@ -1,9 +1,3 @@
-cmake_minimum_required(VERSION 3.15)
-project(.)
-
-set(CMAKE_CXX_STANDARD 17)
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
 # SFML
 add_subdirectory("deps/SFML")
 set(SFML_LIB sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
@@ -14,8 +8,7 @@ set(WITH_GFLAGS false)
 add_subdirectory("deps/glog")
 
 # ENGINE LIBRARY
-file(GLOB src_files
-        src/*)
+file(GLOB src_files src/*)
 
 add_library(top_down_engine
         src/core/core.cpp
@@ -34,8 +27,10 @@ add_library(top_down_engine
         src/core/loader.cpp
         src/core/loader_manager.cpp
         src/drawable/camera.cpp
-        src/drawable/drawable_config.cpp
-        src/utils/display_logger.cpp)
+        src/utils/display_logger.cpp
+        src/launcher/level.cpp
+        src/launcher/launcher.cpp
+        src/interface/interface.cpp)
 
 target_link_libraries(top_down_engine ${SFML_LIB})
 target_include_directories(top_down_engine PUBLIC include)

@@ -6,6 +6,7 @@
 
 #include <glog/logging.h>
 
+
 namespace Engine {
 
     void World::Draw() {
@@ -23,8 +24,6 @@ namespace Engine {
         for (auto& actor : dynamic_actors_) {
             actor->Draw(*camera_);
         }
-
-        interface_.Draw(*camera_);
     }
 
     void World::Tick(double time_delta) {
@@ -48,15 +47,9 @@ namespace Engine {
 
         // tick camera
         camera_->Tick(time_delta);
-
-        interface_.Tick(time_delta);
     }
 
     bool World::ProcessEvent(sf::Event &event) {
-        if (interface_.ProcessEvent(event)) {
-            return true;
-        }
-
         bool event_captured = false;
         for (auto& actor : non_collision_actors_) {
             event_captured|=actor->GetController().ProcessEvent(event);

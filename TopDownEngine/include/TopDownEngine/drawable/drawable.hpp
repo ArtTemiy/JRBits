@@ -17,7 +17,7 @@ namespace Engine::Drawable {
     public:
         /// Draw object on the screen using camera
         /// @param [in] camera - camera that will draw the object
-        virtual void Draw(ICamera& camera) = 0;
+        virtual void Draw(ICamera& camera) {};
     };
 
     using IDrawablePtr = std::shared_ptr<IDrawable>;
@@ -29,6 +29,10 @@ namespace Engine::Drawable {
         virtual void SetSize(const Size& size) = 0;
 
         virtual void SetPosition(const Coordinates &coordinates) = 0;
+
+        /// Returns sprite that should be drawn at the moment
+        /// @returns sprite to draw
+        virtual const sf::Sprite& GetSprite() const = 0;
     };
 
     using IDrawableComponentPtr = std::shared_ptr<IDrawableComponent>;
@@ -81,7 +85,7 @@ namespace Engine::Drawable {
             sprite_ = std::move(sprite);
         }
 
-        auto& GetSprite() {
+        const sf::Sprite& GetSprite() const override {
             return sprite_;
         }
 
@@ -119,7 +123,7 @@ namespace Engine::Drawable {
             assert(sprites.size() == times.size());
         }
 
-        const sf::Sprite& GetSprite() const;
+        const sf::Sprite& GetSprite() const override;
 
         /// Set flipbook to initial state
         void Reset();

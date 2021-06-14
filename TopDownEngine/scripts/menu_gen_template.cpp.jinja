@@ -1,0 +1,24 @@
+#pragma once
+
+#include <TopDownEngine/interface/interface.hpp>
+namespace Game::{{namespace}} {
+    /// {description}
+    class {{name}} : public Engine::Interface::Interface<{{caller_class}}> {
+    public:
+        {{name}}() {
+            {% for button in buttons %}
+            buttons_.[button.name] = Engine::Interface::InterfaceButton(Engine::Object {
+                {{button.position[0]}}, {{button.position[1]}}
+            })
+
+            {% endfor %}
+        }
+ 
+        bool ProcessEvent(sf::Event& event, sf::RenderWindow& window, CallerClass* caller = nullptr) override {
+            {% for button in buttons %}
+            if (buttons_[{{button.name}}].MouseHover())
+            {% endfor %}
+            return false;
+        };
+    };
+}

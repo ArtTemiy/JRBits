@@ -1,0 +1,23 @@
+namespace: Interface::Menu
+name: MainMenu
+description: Main menu configuration
+caller-class: GameLauncher
+textures-root: "rsrc/menu/textures/"
+background: "menu_background.png"
+buttons:
+  - name: play_button
+    texture: "play_button.png"
+    position:
+      - 30
+      - 30
+    size:
+      - 10
+      - 30
+  - name: quit_button
+    texture: "quit_button.png"
+    position:
+      - 30
+      - 30
+    size:
+      - 10
+      - 30

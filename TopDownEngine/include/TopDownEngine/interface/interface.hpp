@@ -9,46 +9,46 @@
 
 #include <unordered_set>
 
+#include <SFML/Window/Mouse.hpp>
+
 namespace Engine::Interface {
-    template <class ParentObject>
     class InterfaceButton : public Object, public Drawable::WithDrawableComponent {
-        ParentObject* parent_object_ = nullptr;
-
     public:
-        InterfaceButton(Object object = Object(), ParentObject* parent_object = nullptr)
-        : parent_object_(parent_object),
-          Object(object),
-          Drawable::WithDrawableComponent(*this) {}
+        explicit InterfaceButton(Object object = Object())
+        : Object(object),
+          Drawable::WithDrawableComponent(*static_cast<Object*>(this)) {}
 
-        void SetParent(ParentObject* parent_object) {
-            parent_object_ = parent_object;
+        bool MouseHover(sf::RenderWindow& window) {
+            auto mouse_position = ToVector(sf::Mouse::getPosition(window)) / ToVector(window.getSize());
+            return PointInside(mouse_position);
         }
 
-        bool ProcessEvent() {}
+        void Draw(sf::RenderWindow& window);
     };
 
-    template <class ParentObject>
+    template <class CallerClass = void>
     class Interface : public Drawable::IDrawable {
-        std::vector<InterfaceButton<ParentObject>> buttons_ = {};
-        ParentObject* parent_object_ = nullptr;
+        std::unordered_map<std::string, InterfaceButton> buttons_ = {};
+        sf::RenderWindow& render_window_;
 
     public:
-        bool ProcessEvent(sf::Event& event) {};
+        explicit Interface(sf::RenderWindow& window, const std::string& config_path = "")
+        : render_window_(window) {}
 
-        void SetParent(ParentObject* parent_object) {
-            parent_object_ = parent_object;
-        }
+        bool ProcessEvent(sf::Event& event, CallerClass* caller = nullptr) {
+            return false;
+        };
 
         void Tick(double time_delta) override {
-            for (InterfaceButton<ParentObject>& button : buttons_) {
+            for (auto& [name, button] : buttons_) {
                 button.Tick(time_delta);
             }
         }
 
         void Draw(Drawable::ICamera &camera) override {
-            for (InterfaceButton<ParentObject>& button : buttons_) {
-                button.Draw(camera);
+            for (auto& [name, button] : buttons_) {
+                button.Draw(render_window_);
             }
         }
     };
-}
+} // namespace Engine::Interface

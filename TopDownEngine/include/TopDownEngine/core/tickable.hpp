@@ -9,6 +9,6 @@ namespace Engine {
     public:
         /// called every frame
         /// @param [in] time_delta Time passed form precious frame
-        virtual void Tick(double time_delta) = 0;
+        virtual void Tick(double time_delta) {};
     };
 }

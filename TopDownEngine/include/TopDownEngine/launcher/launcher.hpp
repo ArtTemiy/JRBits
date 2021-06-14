@@ -1,30 +1,25 @@
 //
-// Created by Artemiy Shvedov on 11.04.21.
+// Created by Artemiy Shvedov on 08.06.21.
 //
 
 #pragma once
 
-#include <TopDownEngine/world.hpp>
-#include <TopDownEngine/launcher/launch_config.hpp>
+#include "level.hpp"
+#include "launcher_config.hpp"
+
+#include <SFML/Window.hpp>
 
 namespace Engine::Launcher {
-
-    /// Creates and launches game according to LaunchConfig and user configured world
     class Launcher {
+        bool is_initialized_ = false;
+
+        sf::RenderWindow window_;
         LauncherConfig config_;
 
-        Engine::World world_;
-        sf::RenderWindow window_;
-
     public:
-        Launcher() = default;
+        virtual void Init(const LauncherConfig& config);
 
-        /// Initialize world
-        /// @param [in] config - general configuration
-        /// @return world that can be changed by user
-        World& Init(const LauncherConfig& config);
-
-        /// Runs the world
-        int Run();
+        sf::RenderWindow& GetWindow() { return window_; };
+        int RunLevel(Level::Level& level);
     };
 }
