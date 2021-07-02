@@ -9,6 +9,7 @@
 #include <TopDownEngine/controller/controller.hpp>
 #include <TopDownEngine/controller/player_controller.hpp>
 #include <TopDownEngine/drawable/drawable.hpp>
+#include <TopDownEngine/world/world_fwd.hpp>
 
 #include "dynamic_object.hpp"
 
@@ -17,11 +18,11 @@ namespace Engine {
     /// Actor interface
     // TODO - think about controller and templates
     class IActor : public DynamicObject, public Drawable::WithDrawableComponent {
-//        Drawable::IDrawableComponentPtr drawable_;
     public:
-        explicit IActor(DynamicObject object)
+        explicit IActor(DynamicObject object, World* world = nullptr)
         : DynamicObject(std::move(object)),
-          WithDrawableComponent(*static_cast<Object*>(this)){}
+          WithDrawableComponent(*static_cast<Object*>(this)),
+          world_(world) {}
 
         virtual Controller::IController<>& GetController() = 0;
 
@@ -29,6 +30,9 @@ namespace Engine {
             DynamicObject::Tick(time_delta);
             WithDrawableComponent::Tick(time_delta);
         }
+
+    private:
+        World* world_;
     };
 
     /// Actor - dynamic object with controller, given via template

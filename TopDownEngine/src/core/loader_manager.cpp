@@ -5,12 +5,6 @@
 #include <TopDownEngine/core/loader_maneger.hpp>
 
 namespace Engine {
-    TextureLoader LoaderManager::actor_textures_loader("rsrc/textures/actors/", {
-            "circle"
-        }, "Actor Texture Loader");
-    TextureLoader LoaderManager::game_tile_textures_loader("rsrc/textures/tile", {
-            "dirt",
-            "grass",
-            "mountain"
-        }, "Game Tile Texture Loader");
+    TextureLoader LoaderManager::actor_textures_loader("rsrc/textures/actors",  "Actor Texture Loader");
+    TextureLoader LoaderManager::game_tile_textures_loader("rsrc/textures/tiles", "Game Tile Texture Loader");
 }

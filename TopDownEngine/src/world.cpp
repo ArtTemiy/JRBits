@@ -2,7 +2,7 @@
 // Created by Artemiy Shvedov on 01.04.21.
 //
 
-#include <TopDownEngine/world.hpp>
+#include <TopDownEngine/world/world.hpp>
 
 #include <glog/logging.h>
 

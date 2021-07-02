@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <TopDownEngine/world/world_fwd.hpp>
+
 #include <TopDownEngine/core/core.hpp>
 #include <TopDownEngine/drawable/drawable.hpp>
 #include <TopDownEngine/map/map.hpp>

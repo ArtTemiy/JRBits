@@ -6,7 +6,7 @@
 
 #include "level_config.hpp"
 
-#include <TopDownEngine/world.hpp>
+#include <TopDownEngine/world/world.hpp>
 #include <TopDownEngine/launcher/launcher_config.hpp>
 
 #include <utility>

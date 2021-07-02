@@ -1,7 +1,7 @@
 namespace: Interface::Menu
 name: MainMenu
 description: Main menu configuration
-caller-class: GameLauncher
+caller-class: TopDownEngine::
 textures-root: "rsrc/menu/textures/"
 background: "menu_background.png"
 buttons:

@@ -5,6 +5,7 @@
 #include <TopDownEngine/core/loader.hpp>
 
 #include <SFML/Graphics.hpp>
+#include <yaml-cpp/yaml.h>
 #include <glog/logging.h>
 
 namespace Engine {
@@ -14,19 +15,27 @@ namespace Engine {
             return true;
         }
         data_ = {};
-        if (path_prefix_.back() != '/') {
-            path_prefix_ += '/';
-        }
-        for (auto& file_name : files_list_) {
-            std::shared_ptr<sf::Texture> texture(new sf::Texture());
-            if (!texture->loadFromFile(path_prefix_ + file_name + ".png")) {
-                LOG(WARNING) << "Wasn't able to load texture: " << file_name;
-                return false;
+        auto config = YAML::LoadFile(directory_path_ + "/textures.yaml");
+        try {
+            for (YAML::const_iterator it = config.begin(); it != config.end(); ++it) {
+                const auto texture_name = it->first.as<std::string>();
+                const auto texture_file = it->second.as<std::string>();
+
+                auto load_path = directory_path_ + texture_file;
+
+                std::shared_ptr<sf::Texture> texture(new sf::Texture());
+                if (!texture->loadFromFile(load_path)) {
+                    LOG(WARNING) << "Wasn't able to load texture: " << load_path;
+                    return false;
+                }
+                data_[texture_name] = texture;
             }
-            data_[file_name] = texture;
+            LOG(INFO) << "`" << caption_ << "`" << " Texture loader: textures loaded successfully";
+            data_loaded_ = true;
+            return true;
+        } catch (std::exception& e) {
+            LOG(ERROR) << "The exception was occurred while loading textures in `" << caption_ << "` texture loader:" << e.what();
+            return false;
         }
-        LOG(INFO) << "`" << caption_ << "`" << " Texture loader: textures loaded successfully";
-        data_loaded_ = true;
-        return true;
     }
 }

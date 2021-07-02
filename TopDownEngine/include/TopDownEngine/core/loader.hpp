@@ -33,16 +33,17 @@ namespace Engine {
     };
 
     class TextureLoader : public Loader<std::shared_ptr<sf::Texture>> {
-        std::string path_prefix_;
-        std::vector<std::string> files_list_;
+        std::string directory_path_;
 
         std::string caption_;
 
     public:
-        TextureLoader(std::string path_prefix, std::vector<std::string> files_list, std::string caption)
-        : path_prefix_(std::move(path_prefix)),
-          files_list_(std::move(files_list)),
-          caption_(std::move(caption)) {}
+        explicit TextureLoader(std::string directory_path, std::string caption = "***")
+        : directory_path_(std::move(directory_path)), caption_(std::move(caption)) {
+            if (directory_path_.back() != '/') {
+                directory_path_ += '/';
+            }
+        }
 
         bool LoadData() override;
     };

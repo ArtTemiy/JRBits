@@ -6,11 +6,14 @@
 #include <TopDownEngine/controller/null_controller.hpp>
 
 int main() {
-    Engine::Launcher::LauncherConfig game_config = {};
+    Engine::Launcher::LauncherConfig game_config;
     Engine::Launcher::Launcher launcher;
-    game_config.map_source = "TopDownEngine/rsrc/maps/full_big.map";
 
-    auto& world = launcher.Init(game_config);
+    Engine::Level::LevelConfig level_config;
+    level_config.map_source = "TopDownEngine/rsrc/maps/full_big.map";
+
+    Engine::Level::Level level("Main level");
+    auto& world = level.Init(level_config);
 
     auto player = std::make_shared<Engine::Actor<Engine::Controller::PlayerController>>(
             Engine::DynamicObject(
@@ -32,7 +35,9 @@ int main() {
     world.AddObject(player);
     world.AddObject(obj1);
 
-    auto return_code = launcher.Run();
+    launcher.Init(game_config);
+
+    auto return_code = launcher.RunLevel(level);
 
     return return_code;
 }

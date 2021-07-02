@@ -2,10 +2,13 @@
 add_subdirectory("deps/SFML")
 set(SFML_LIB sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
 
-# GTEST
+# GTEST, GLOG
 add_subdirectory("deps/gtest")
 set(WITH_GFLAGS false)
 add_subdirectory("deps/glog")
+
+# YAML
+add_subdirectory("deps/yaml-cpp")
 
 # ENGINE LIBRARY
 file(GLOB src_files src/*)
@@ -32,9 +35,10 @@ add_library(top_down_engine
         src/launcher/launcher.cpp
         src/interface/interface.cpp)
 
-target_link_libraries(top_down_engine ${SFML_LIB})
 target_include_directories(top_down_engine PUBLIC include)
+target_link_libraries(top_down_engine ${SFML_LIB})
 target_link_libraries(top_down_engine glog)
+target_link_libraries(top_down_engine yaml-cpp)
 
 
 # TESTS
