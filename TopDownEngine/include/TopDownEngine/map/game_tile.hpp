@@ -7,7 +7,6 @@
 #include <TopDownEngine/core/core.hpp>
 #include <TopDownEngine/drawable/drawable.hpp>
 #include <TopDownEngine/map/i_tile.hpp>
-#include <TopDownEngine/core/loader_maneger.hpp>
 
 #include <SFML/Graphics.hpp>
 
@@ -15,45 +14,19 @@
 #include <memory>
 
 namespace Engine {
-    // TODO - use templates?
     /// Tile with DrawableComponent
-    class GameTile : public Drawable::DrawableStatic, public ITile {
-    public:
-        enum Type {
-            kGrass,
-            kDirt,
-            kMountain,
-
-            kNone
-        };
-
-    private:
+    class GameTile : public Engine::Drawable::DrawableStatic, public ITile {
         /// size of all tile
         static Size tile_size;
 
-        Type type_ = kNone;
-
     public:
+        GameTile() = default;
+        GameTile(const GameTile& other) = default;
+
         static const auto GetTileSize() {
             return tile_size;
         }
 
-        Type GetType() const {
-            return type_;
-        }
-
-        void SetType(Type type) {
-            type_ = type;
-        }
-
-        void Draw(Drawable::ICamera &camera) override;
+        void Draw(Drawable::Camera &camera) override;
     };
-
-    // TODO - use loader manager
-    class GameTilesTextureLoader {
-        static std::unordered_map<char, std::string> bindings;
-
-    public:
-        static std::shared_ptr<GameTile> MakeTile(char c);
-    };
-}
+} // Engine

@@ -7,20 +7,21 @@
 #include <TopDownEngine/object/dynamic_object.hpp>
 
 #include <SFML/Window/Event.hpp>
+#include <glog/logging.h>
 
 #include <memory>
+#include <exception>
 
 namespace Engine::Controller {
 
     /// Class that controls actor (decides what to do depending
     /// on what is happening)
-    template <class ObjectType = DynamicObject>
     class IController {
     protected:
-        /// object to control
-        ObjectType& object_;
     public:
-        explicit IController(DynamicObject& object) : object_(object) {}
+        virtual ~IController() = default;
+
+        virtual void SetControllable(Object*) = 0;
 
         virtual void Tick(double time_delta) = 0;
 
@@ -30,6 +31,25 @@ namespace Engine::Controller {
         virtual bool ProcessEvent(const sf::Event& event) = 0;
     };
 
-    template <class ObjectType = DynamicObject>
-    using ControllerPtr = std::shared_ptr<IController<ObjectType>>;
+    template <class Controllable = Object>
+    class Controller : public IController {
+    protected:
+        Controllable* object_ = nullptr;
+
+    public:
+        void SetControllable(Object* object) override;
+    };
+
+    template<class Controllable>
+    void Controller<Controllable>::SetControllable(Object* object) {
+        Object* a;
+        DynamicObject* b = dynamic_cast<DynamicObject*>(a);
+
+        object_ = dynamic_cast<Controllable*>(object);
+        if (!object_) {
+            throw std::runtime_error("Could not cast point to type");
+        }
+    }
+
+    using ControllerPtr = std::shared_ptr<IController>;
 }

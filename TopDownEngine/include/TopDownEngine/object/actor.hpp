@@ -5,7 +5,7 @@
 #pragma once
 
 #include <TopDownEngine/core/core.hpp>
-#include <TopDownEngine/core/loader.hpp>
+#include <TopDownEngine/core/loaders/loader.hpp>
 #include <TopDownEngine/controller/controller.hpp>
 #include <TopDownEngine/controller/player_controller.hpp>
 #include <TopDownEngine/drawable/drawable.hpp>
@@ -17,50 +17,36 @@ namespace Engine {
 
     /// Actor interface
     // TODO - think about controller and templates
-    class IActor : public DynamicObject, public Drawable::WithDrawableComponent {
+    class Actor : public DynamicObject, public Drawable::WithDrawableComponent, std::enable_shared_from_this<Actor> {
+        World* world_ = nullptr;
+        bool destroy_ = false;
+        Controller::ControllerPtr controller_;
+
     public:
-        explicit IActor(DynamicObject object, World* world = nullptr)
+        explicit Actor(DynamicObject object, World* world = nullptr)
         : DynamicObject(std::move(object)),
           WithDrawableComponent(*static_cast<Object*>(this)),
           world_(world) {}
 
-        virtual Controller::IController<>& GetController() = 0;
+        void Tick(double time_delta) override;
 
-        void Tick(double time_delta) override {
-            DynamicObject::Tick(time_delta);
-            WithDrawableComponent::Tick(time_delta);
-        }
+        World* GetWorld() const { return world_; }
+        void SetWorld(World* world) { world_ = world; }
 
-    private:
-        World* world_;
-    };
+        bool IsDestroy() const { return destroy_; }
+        void SetDestroy(bool destroy) { destroy_ = destroy; }
 
-    /// Actor - dynamic object with controller, given via template
-    template <class ControllerT>
-    class Actor : public IActor {
-        using ControllerPtr = std::shared_ptr<ControllerT>;
-        ControllerT controller_;
+        void SetCollisionType(CollisionType collision_type) override;
 
-    public:
-        explicit Actor(DynamicObject object)
-                : IActor(std::move(object)),
-                  controller_(*this) {
-        }
-
-        Controller::IController<>& GetController() override {
+        Controller::ControllerPtr GetController() {
             return controller_;
         }
 
-        void Tick(double time_delta) override;
-    };
+        void SetController(const Controller::ControllerPtr& controller) {
+            controller_ = controller;
+            controller_->SetControllable(this);
+        }
 
-    template<class ControllerT>
-    void Actor<ControllerT>::Tick(double time_delta) {
-        controller_.Tick(time_delta);
-        DynamicObject::Tick(time_delta);
-    }
-
-    class ActorTextureLoader : Loader<std::shared_ptr<sf::Texture>> {
-        bool LoadData() override;
+        void CheckCorrectness();
     };
 }

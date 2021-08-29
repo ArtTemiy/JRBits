@@ -8,7 +8,8 @@ namespace Engine {
     class Tickable {
     public:
         /// called every frame
-        /// @param [in] time_delta Time passed form precious frame
+        /// @param [in] time_delta - Time passed form precious frame (in seconds)
         virtual void Tick(double time_delta) {};
+        virtual ~Tickable() = default;
     };
 }

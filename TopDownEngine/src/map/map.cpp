@@ -2,15 +2,17 @@
 // Created by ArtTemiy on 26.02.2021.
 //
 
+#include <TopDownEngine/map/map.hpp>
+#include <TopDownEngine/map/game_tile_creator.hpp>
+#include <TopDownEngine/load_manager/loader_maneger.hpp>
+
+#include <glog/logging.h>
+
 #include <fstream>
 #include <iostream>
 #include <queue>
 #include <string>
 #include <filesystem>
-
-#include <glog/logging.h>
-
-#include <TopDownEngine/map/map.hpp>
 
 namespace Engine {
     using Tile = Map::Tile;
@@ -67,7 +69,7 @@ namespace Engine {
             auto[coordinates, direction] = tiles_queue.front();
             tiles_queue.pop();
             auto next_tile = GetTile(coordinates);
-            if (next_tile->GetIsBlock() || visited_tiles[coordinates[0]][coordinates[1]] != kNotVisited) {
+            if (next_tile->IsBlock() || visited_tiles[coordinates[0]][coordinates[1]] != kNotVisited) {
                 continue;
             }
             visited_tiles[coordinates[0]][coordinates[1]] = direction;
@@ -144,7 +146,7 @@ namespace Engine {
             for (uint column = 0; column < width; ++column) {
                 map_file >> tile_code;
 
-                tiles[row][column] = GameTilesTextureLoader::MakeTile(tile_code);
+                tiles[row][column] = Loader::LoaderManager::game_tile_creator.MakeTile(tile_code);
             }
         }
         map_file.get();

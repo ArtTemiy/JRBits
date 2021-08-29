@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory("TopDownEngine")
 
-add_executable(game Game/src/Game.cpp)
+add_executable(game
+        Game/src/Game.cpp
+        Game/src/camera/camera_target_controller.cpp
+#        Game/src/camera/target_camera.cpp
+        Game/src/actor_creator_helper/actor_creator_helper.cpp)
 
 target_link_libraries(game top_down_engine)
-target_include_directories(game PUBLIC src/include)
+target_include_directories(game PUBLIC Game/src)

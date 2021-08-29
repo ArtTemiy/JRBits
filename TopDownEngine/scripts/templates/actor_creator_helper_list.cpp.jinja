@@ -1,0 +1,7 @@
+namespace ActorsCreatorHelper {
+enum ActorsList {
+    {% for actor in actors %}
+    k{{actor.capitalize()}},
+    {% endfor %}
+};
+} // namespace ActorsCreatorHelper

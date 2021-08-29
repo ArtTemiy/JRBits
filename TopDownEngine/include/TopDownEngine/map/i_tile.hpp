@@ -13,7 +13,7 @@ namespace Engine{
         bool is_block = false;
 
     public:
-        auto GetIsBlock() const {
+        auto IsBlock() const {
             return is_block;
         }
 

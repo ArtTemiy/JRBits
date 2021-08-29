@@ -88,8 +88,8 @@ namespace Engine {
 
     sf::Vector2f ToSFVector2f(const Vector& v) {
         return sf::Vector2f(
-            static_cast<float>(v[0]),
-            static_cast<float>(v[1]));
+            static_cast<float>(v[1]),
+            static_cast<float>(v[0]));
     }
 
     std::ostream& operator<<(std::ostream& out, const Vector& vector) {

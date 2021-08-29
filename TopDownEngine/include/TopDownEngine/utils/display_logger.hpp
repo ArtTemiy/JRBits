@@ -4,6 +4,7 @@
 
 #pragma once
 #include <TopDownEngine/core/core.hpp>
+#include <TopDownEngine/drawable/drawable_utils.hpp>
 
 #include <SFML/Graphics.hpp>
 #include <glog/logging.h>
@@ -42,17 +43,7 @@ namespace Engine::Utils {
         }
 
         /// Show log on the screen
-        static void Show() {
-            if (display_) {
-                sf::Text text;
-                text.setFont(font_);
-                text.setString(content_.str());
-                text.setPosition(window_->getView().getCenter().x - window_->getView().getSize().x / 2,
-                                  window_->getView().getCenter().y - window_->getView().getSize().y / 2);
-                window_->draw(text);
-            }
-            content_.str("");
-        }
+        static void Show();
 
         static auto& GetStream() {
             return content_;

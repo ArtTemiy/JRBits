@@ -12,10 +12,10 @@ int main() {
     Engine::Launcher::Launcher launcher;
 
     Engine::Level::LevelConfig level_config;
-    level_config.map_source = "rsrc/maps/3types_tiles.map";
+    level_config.rsrc.map_source = "rsrc/maps/3types_tiles.map";
 
     Engine::Level::Level level;
-    auto& world = level.Init(level_config);
+    auto& world = level.CreateWorld(level_config);
 
     launcher.Init(game_config);
 

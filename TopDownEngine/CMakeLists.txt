@@ -27,13 +27,19 @@ add_library(top_down_engine
         src/map/game_tile.cpp
         src/map/i_tile.cpp
         src/launcher/launcher.cpp
-        src/core/loader.cpp
+        src/core/loaders/loader.cpp
+        src/core/loaders/texture_loader.cpp
         src/core/loader_manager.cpp
         src/drawable/camera.cpp
+        src/drawable/drawable_utils.cpp
         src/utils/display_logger.cpp
         src/launcher/level.cpp
         src/launcher/launcher.cpp
-        src/interface/interface.cpp)
+        src/interface/interface.cpp
+        src/map/game_tile_creator.cpp
+        src/interface/message.cpp
+        src/drawable/drawable_screen.cpp
+        src/core/loaders/font_loader.cpp)
 
 target_include_directories(top_down_engine PUBLIC include)
 target_link_libraries(top_down_engine ${SFML_LIB})

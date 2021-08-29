@@ -8,23 +8,20 @@ target_link_libraries(gtests
         gtest
         gtest_main)
 
-add_executable(test_display
+macro(add_exec_test TEST_NAME TEST_SRC)
+    add_executable(${TEST_NAME} ${TEST_SRC})
+    target_link_libraries(${TEST_NAME}
+            top_down_engine
+            ${SFML_LIB})
+endmacro()
+
+add_exec_test(test_view_display
         view_and_moving/display.cpp)
 
-target_link_libraries(test_display
-        top_down_engine
-        ${SFML_LIB})
-
-add_executable(test_player_actor_moving
+add_exec_test(test_view_player_actor_moving
         view_and_moving/player_actor_moving.cpp)
 
-target_link_libraries(test_player_actor_moving
-        top_down_engine
-        ${SFML_LIB})
-
-add_executable(test_collision
+add_exec_test(test_view_collision
         view_and_moving/collision_blocks_moving.cpp)
 
-target_link_libraries(test_collision
-        top_down_engine
-        ${SFML_LIB})
+add_exec_test(test_interface_message interface/message.cpp)

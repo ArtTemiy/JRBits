@@ -16,7 +16,7 @@ namespace Engine::Tests::MapLoading {
         EXPECT_EQ(map.GetSize(), expected_size);
         for (size_t i = 0; i < map.GetSize()[0]; ++i) {
             for (size_t j = 0; j < map.GetSize()[1]; ++j) {
-                EXPECT_EQ(map.GetTile(i, j)->GetIsBlock(), false);
+                EXPECT_EQ(map.GetTile(i, j)->IsBlock(), false);
             }
         }
     }

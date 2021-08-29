@@ -1,15 +1,13 @@
 //
-// Created by Artemiy Shvedov on 18.04.21.
+// Created by Artemiy Shvedov on 05.08.21.
 //
 
-#include <TopDownEngine/core/loader.hpp>
+#include <TopDownEngine/core/loaders/texture_loader.hpp>
 
-#include <SFML/Graphics.hpp>
 #include <yaml-cpp/yaml.h>
 #include <glog/logging.h>
 
-namespace Engine {
-
+namespace Engine::Loader {
     bool TextureLoader::LoadData() {
         if (data_loaded_) {
             return true;
@@ -17,9 +15,9 @@ namespace Engine {
         data_ = {};
         auto config = YAML::LoadFile(directory_path_ + "/textures.yaml");
         try {
-            for (YAML::const_iterator it = config.begin(); it != config.end(); ++it) {
-                const auto texture_name = it->first.as<std::string>();
-                const auto texture_file = it->second.as<std::string>();
+            for (auto it = config.begin(); it != config.end(); ++it) {
+                auto texture_name = it->first.as<std::string>();
+                auto texture_file = it->second.as<std::string>();
 
                 auto load_path = directory_path_ + texture_file;
 

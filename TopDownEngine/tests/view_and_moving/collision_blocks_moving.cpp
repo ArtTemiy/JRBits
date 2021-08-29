@@ -14,7 +14,7 @@ int main() {
     level_config.map_source = "rsrc/maps/full_big.map";
 
     Engine::Level::Level level("Test level");
-    auto& world = level.Init(level_config);
+    auto& world = level.CreateWorld(level_config);
 
     auto player = std::make_shared<Engine::Actor<Engine::Controller::PlayerController>>(
             Engine::DynamicObject(
@@ -33,8 +33,8 @@ int main() {
             std::make_shared<Engine::Drawable::DrawableStatic>(
                     *Engine::LoaderManager::actor_textures_loader.GetData().at("circle"))
     );
-    world.AddObject(player);
-    world.AddObject(obj1);
+    world.AddActor(player);
+    world.AddActor(obj1);
 
     launcher.Init(game_config);
 

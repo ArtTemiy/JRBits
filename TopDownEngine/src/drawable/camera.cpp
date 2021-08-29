@@ -6,22 +6,20 @@
 #include <TopDownEngine/drawable/drawable_config.hpp>
 
 namespace Engine::Drawable {
-    void ICamera::DrawSprite(sf::Sprite& sprite) {
-        window_.draw(sprite);
+    void Camera::DrawSprite(sf::Sprite& sprite) {
+        window_->draw(sprite);
     }
 
-    ICamera::ICamera(sf::RenderWindow &window, const Coordinates &coordinates)
-            : DynamicObject(coordinates, {0, 0}, 1),
-              window_(window),
-              view_({0, 0}, sf::Vector2f(
-                      window_.getSize().x, window_.getSize().y)) {
+    void Camera::LevelInit(sf::RenderWindow* window, const Coordinates &coordinates) {
+        SetCoordinates(coordinates);
+        window_ = window;
+        view_.setCenter({0, 0});
+        view_.setSize(sf::Vector2f(window_->getSize().x, window_->getSize().y));
         UpdateView();
     }
 
-    void ICamera::UpdateView() {
-        view_.setCenter(sf::Vector2f(
-                Object::GetCoordinates()[0] * DrawableConfig::pixels_per_unit,
-                Object::GetCoordinates()[1] * DrawableConfig::pixels_per_unit));
-        window_.setView(view_);
+    void Camera::UpdateView() {
+        view_.setCenter(ToSFVector2f(Object::GetCoordinates() * DrawableConfig::pixels_per_unit));
+        window_->setView(view_);
     }
 }

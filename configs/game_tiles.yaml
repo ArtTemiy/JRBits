@@ -1,0 +1,12 @@
+grass:
+    code: '.'
+    texture: grass
+    block: false
+dirt:
+    code: '#'
+    texture: dirt
+    block: false
+mountain:
+    code: 'x'
+    texture: mountain
+    block: true

@@ -11,8 +11,8 @@ namespace Engine::Launcher {
         uint kFPS = 60;
 
         /// window settings
-        uint window_width = 3000;
-        uint window_height = 2000;
+        uint window_width = 800;
+        uint window_height = 600;
 
         /// if DisplayLogger should show logs
         bool display_logger_show = true;

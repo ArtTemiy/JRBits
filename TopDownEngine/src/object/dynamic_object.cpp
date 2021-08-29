@@ -56,11 +56,11 @@ namespace Engine {
     /// @param [in] dynamic_object must be dynamic
     /// @param [out] static_object must be static
     void ProcessCollision(DynamicObject& dynamic_object, DynamicObject& static_object) {
-        assert(dynamic_object.GetCollisionDynamic() == DynamicObject::kDynamic);
-        assert(static_object.GetCollisionDynamic() == DynamicObject::kStatic);
+        assert(dynamic_object.GetCollisionType() == DynamicObject::kDynamic);
+        assert(static_object.GetCollisionType() == DynamicObject::kStatic);
 
         auto intersection = dynamic_object.Intersection(static_object);
-        if (!intersection.has_value()) {
+        if (!intersection) {
             return;
         }
         auto& intersection_object = intersection.value();

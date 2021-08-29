@@ -8,9 +8,9 @@
 
 #include <optional>
 
-using MovingDirection = std::array<double, 2>;
-
 namespace Engine {
+    using MovingDirection = Vector;
+
     /// Dynamic object with moving ability
     class DynamicObject : public Object, Tickable {
     public:
@@ -28,9 +28,14 @@ namespace Engine {
         ///Moving direction (with norm = 1)
         MovingDirection moving_direction_ = {0, 0};
 
-        const CollisionType collision_type_;
+        CollisionType collision_type_;
 
     public:
+        DynamicObject()
+            : Object(),
+              velocity_(1.),
+              collision_type_(kNoCollision) {}
+
         DynamicObject(Object object, double max_velocity, const CollisionType collision_type = kNoCollision)
                 : Object(object),
                   velocity_(max_velocity),
@@ -52,17 +57,12 @@ namespace Engine {
 
         void Tick(double time_delta) override;
 
-        double GetVelocity() const {
-            return velocity_;
-        }
+        double GetVelocity() const { return velocity_; }
+        void SetVelocity(double velocity) { velocity_ = velocity; }
 
-        void SetVelocity(double velocity) {
-            velocity_ = velocity;
-        }
+        CollisionType GetCollisionType() const { return collision_type_; }
+        virtual void SetCollisionType(CollisionType collision_type) { collision_type_ = collision_type; }
 
-        auto& GetCollisionDynamic() const {
-            return collision_type_;
-        }
 
         /// Processes collision with another object (can change only itself)
         template<class OtherObject>

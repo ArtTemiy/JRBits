@@ -17,7 +17,7 @@ namespace Engine::Drawable {
     public:
         /// Draw object on the screen using camera
         /// @param [in] camera - camera that will draw the object
-        virtual void Draw(ICamera& camera) {};
+        virtual void Draw(Camera& camera) {};
     };
 
     using IDrawablePtr = std::shared_ptr<IDrawable>;
@@ -53,16 +53,19 @@ namespace Engine::Drawable {
             drawable_->SetSize(object_.GetSize());
         }
 
-        void Draw(Drawable::ICamera &camera) override {
+        void Draw(Drawable::Camera& camera) override {
             if (!drawable_) {
-                throw std::runtime_error("No drawable component");
+                // throw std::runtime_error("No drawable component");
+                return;
             }
             drawable_->SetPosition(object_.GetCoordinates());
             drawable_->Draw(camera);
         }
 
         void Tick(double time_delta) override {
-            drawable_->Tick(time_delta);
+            if (drawable_) {
+                drawable_->Tick(time_delta);
+            }
         }
     };
 
@@ -89,7 +92,7 @@ namespace Engine::Drawable {
             return sprite_;
         }
 
-        void Draw(ICamera& camera) override;
+        void Draw(Camera& camera) override;
 
         void SetSize(const Size& size) override;
 
@@ -130,7 +133,7 @@ namespace Engine::Drawable {
 
         void Tick(double time_delta) override;
 
-        void Draw(ICamera& camera) override;
+        void Draw(Camera& camera) override;
 
         void SetSize(const Size& size) override;
 

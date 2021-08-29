@@ -18,9 +18,13 @@ namespace Engine {
         Size size_;
 
     public:
+        /// @param [in] coordinates - Coordinates of the object
+        /// @param [in] size - Size of the object
         Object(Coordinates coordinates = {0, 0}, Size size = {0, 0})
                 : coordinates_(coordinates),
                   size_(size) {}
+
+        virtual ~Object() = default;
 
         Coordinates GetCoordinates() const;
 

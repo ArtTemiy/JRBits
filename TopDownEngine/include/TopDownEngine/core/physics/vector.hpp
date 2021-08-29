@@ -10,7 +10,44 @@
 #include <iostream>
 
 namespace Engine {
-    using Vector = std::array<double, 2>;
+    /// Vector: (y, x)
+    struct Vector {
+        double y, x;
+
+        Vector(double y, double x) : y(y), x(x) {}
+        Vector(std::array<double, 2> arr) : y(arr[0]), x(arr[1]) {}
+        Vector(std::initializer_list<double> list) {
+            assert(list.size() == 2);
+            y = *list.begin();
+            x = *(list.begin() + 1);
+        }
+
+        double operator[](size_t axis) const {
+            assert(axis < 2);
+            if (axis) {
+                return x;
+            } else {
+                return y;
+            }
+        }
+        double& operator[](size_t axis) {
+            assert(axis < 2);
+            if (axis) {
+                return x;
+            } else {
+                return y;
+            }
+        }
+
+        bool operator==(const Vector& rhs) const {
+            return std::tie(y, x) == std::tie(rhs.y, rhs.x);
+        }
+
+        bool operator!=(const Vector& rhs) const {
+            return !(rhs == *this);
+        }
+    };
+//    using Vector = std::array<double, 2>;
 
     double Norm(const Vector& v);
 

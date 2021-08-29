@@ -12,7 +12,7 @@ namespace Engine::Controller {
 
     /// Controller for player character
     /// Processes moving and moves object
-    class PlayerController : public IController<> {
+    class PlayerController : public Controller<DynamicObject> {
     public:
         /// Possible actions
         enum Actions {
@@ -22,10 +22,6 @@ namespace Engine::Controller {
             kGoLeft,
             kWin
         };
-
-    private:
-    public:
-        explicit PlayerController(DynamicObject &object);
 
     private:
 

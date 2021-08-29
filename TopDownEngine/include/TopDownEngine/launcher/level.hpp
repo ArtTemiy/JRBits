@@ -21,14 +21,15 @@ namespace Engine::Level {
 
     /// Creates and launches game according to LaunchConfig and user configured world
     class Level {
+        using WorldInterfacePtr = std::shared_ptr<Interface::Interface<Engine::World>>;
+
         std::string caption_ = "Unknown level";
         bool is_initialized_ = false;
 
         LevelConfig config_;
 
         Engine::World world_;
-        sf::RenderWindow window_;
-        std::shared_ptr<Interface::Interface<Engine::World>> interface_;
+        WorldInterfacePtr interface_;
 
     public:
         explicit Level(std::string caption = "") : caption_(std::move(caption)) {}
@@ -36,7 +37,11 @@ namespace Engine::Level {
         /// Initialize world
         /// @param [in] config - level configuration
         /// @return world that can be changed by user
-        World& Init(const LevelConfig& config);
+        World& CreateWorld(const LevelConfig& config);
+
+        void SetInterface(const WorldInterfacePtr & interface) { interface_ = interface; }
+
+        void CheckCorrectness();
 
         /// Runs the world
         int Run(sf::RenderWindow& window, const LevelRunningParams& level_running_params);

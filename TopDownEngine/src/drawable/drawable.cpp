@@ -4,24 +4,18 @@
 
 #include <TopDownEngine/drawable/drawable.hpp>
 #include <TopDownEngine/drawable/drawable_config.hpp>
+#include <TopDownEngine/drawable/drawable_utils.hpp>
 
 namespace Engine::Drawable {
-    void SetSpriteSize(sf::Sprite& sprite, const Size& size) {
-        sprite.setScale(
-                static_cast<float>(size[1]) / sprite.getTexture()->getSize().x,
-                static_cast<float>(size[0]) / sprite.getTexture()->getSize().y
-        );
-    }
-
     void SetSpritePosition(sf::Sprite& sprite, const Coordinates& coordinates) {
         sprite.setPosition(coordinates[1] * DrawableConfig::pixels_per_unit, coordinates[0] * DrawableConfig::pixels_per_unit);
     }
 
-    void FlipBook::Draw(ICamera &camera) {
+    void FlipBook::Draw(Camera &camera) {
         camera.DrawSprite(sprites_[current_sprite_]);
     }
 
-    void DrawableStatic::Draw(ICamera& camera) {
+    void DrawableStatic::Draw(Camera& camera) {
         camera.DrawSprite(sprite_);
     }
 

@@ -23,11 +23,11 @@ namespace Engine::Controller {
 
     bool PlayerController::ProcessEvent(const sf::Event &event) {
         // moving part
-        object_.SetMovingDirection({0, 0});
+        object_->SetMovingDirection({0, 0});
         for (auto& [key, direction] : key_bindings) {
             if (moving_directions.find(direction) != moving_directions.end() &&
                 sf::Keyboard::isKeyPressed(key)) {
-                object_.AddMovingDirection(moving_directions.at(direction));
+                object_->AddMovingDirection(moving_directions.at(direction));
             }
         }
 
@@ -37,6 +37,4 @@ namespace Engine::Controller {
                 return false;
         }
     }
-
-    PlayerController::PlayerController(DynamicObject &object) : IController(object) {}
 }

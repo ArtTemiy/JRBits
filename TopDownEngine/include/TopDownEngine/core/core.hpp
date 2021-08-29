@@ -8,4 +8,6 @@
 #include "physics/vector.hpp"
 #include "tickable.hpp"
 #include "object.hpp"
-#include "loader_maneger.hpp"
+#include "utils.hpp"
+#include "physics/vector.hpp"
+#include "../utils/display_logger.hpp"

@@ -14,7 +14,7 @@
 #include <ostream>
 
 namespace Engine {
-    using TileCoordinates = std::array<uint, 2>;
+    using TileCoordinates = Coordinates;
     using MapSize = std::array<uint, 2>;
     using Path = std::vector<TileCoordinates>;
 
@@ -41,7 +41,7 @@ namespace Engine {
             }
 
             std::pair<TileCoordinates, Map::TilePtr> operator*() const {
-                return {{row_, column_}, map_->GetTile(row_, column_)};
+                return {{static_cast<double>(row_), static_cast<double>(column_)}, map_->GetTile(row_, column_)};
             }
 
             Iterator& operator++() {

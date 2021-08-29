@@ -3,8 +3,8 @@
 //
 
 #include <TopDownEngine/core/core.hpp>
-#include <TopDownEngine/core/object.hpp>
 
+#include <cmath>
 
 namespace Engine {
     Coordinates Object::GetCoordinates() const {
