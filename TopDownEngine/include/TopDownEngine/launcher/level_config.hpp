@@ -9,6 +9,8 @@
 #include <TopDownEngine/drawable/camera.hpp>
 #include <TopDownEngine/world/world.hpp>
 
+#include <yaml-cpp/yaml.h>
+
 #include <string>
 #include <functional>
 
@@ -19,11 +21,14 @@ namespace Engine::Level {
             /// map for loading
             std::string map_source;
         } rsrc;
+        LevelConfig() = default;
+        explicit LevelConfig(const std::string& path);
 
 //        std::function<Drawable::CameraPtr(sf::RenderWindow&, World&)> make_camera = [](sf::RenderWindow& window, World& world) {
 //            return std::make_shared<Drawable::Camera<Controller::NullController>>(window, ToVector(world.GetMap().GetSize()) / 2);
 //        };
     };
+
     /*
     class LevelConfigCreatorHelper {
     public:

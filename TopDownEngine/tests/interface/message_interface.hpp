@@ -28,6 +28,9 @@ class MessageInterface : public Engine::Interface::Interface<Engine::World> {
                     {5, kSpaceWidth / 2 + i * (mess_width + kSpaceWidth)}, {10, mess_width}));
             message.SetSprite(sf::Sprite(background_texture), *window_);
             message.SetExpireTime(times[i]);
+            message.SetMessage("message" + std::to_string(i));
+            message.GetText().setFillColor(sf::Color::Black);
+//            message.SetFont();
             messages_.insert({ "message" + std::to_string(i), message });
         }
         message_created_ = true;

@@ -96,4 +96,7 @@ namespace Engine {
                 static_cast<double>(vector.x)
         };
     }
+
+    /// Vector (1, 1)
+    const inline Vector VOnes = {1, 1};
 }

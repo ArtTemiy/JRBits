@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include <TopDownEngine/core/core.hpp>
+#include <string>
+
 namespace Engine::Launcher {
     /// Configuration for launcher
     struct LauncherConfig {
@@ -16,5 +19,8 @@ namespace Engine::Launcher {
 
         /// if DisplayLogger should show logs
         bool display_logger_show = true;
+
+        explicit LauncherConfig(const std::string& path);
+        LauncherConfig() = default;
     };
 }

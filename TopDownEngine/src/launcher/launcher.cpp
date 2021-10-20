@@ -3,13 +3,21 @@
 //
 
 #include <TopDownEngine/launcher/launcher.hpp>
+
+#include <TopDownEngine/load_manager/loader_maneger.hpp>
 #include <TopDownEngine/utils/display_logger.hpp>
 #include <TopDownEngine/utils/fps_counter.hpp>
 
 namespace Engine::Launcher {
+    Launcher::Launcher() {
+        if (!Loader::LoaderManager::LoadData()) {
+            LogAndThrow("Data wasn\'t load, exit.");
+        }
+    }
+
     void Launcher::Init(const LauncherConfig &config) {
         // config
-        LOG(INFO) << "Congig loading...";
+        LOG(INFO) << "Config loading...";
         config_ = config;
 
         // init window

@@ -15,15 +15,21 @@ class Message : public Drawable::Screen::Drawable {
     std::string message_;
     std::string font_key_;
 
+    sf::Text text_;
+
     sf::Time expire_time_;
     sf::Clock clock_;
 
 public:
     explicit Message(const Object& object) : Drawable(object) {
         expire_time_ = sf::seconds(0);
+        SetFont();
     }
 
+    sf::Text& GetText() { return text_; }
+
     void Draw(sf::RenderWindow &window) override;
+    void SetFont(const std::string& key = "");
     void SetMessage(const std::string& message) { message_ = message; }
     void SetExpireTime(float seconds) {
         expire_time_ = sf::seconds(seconds);

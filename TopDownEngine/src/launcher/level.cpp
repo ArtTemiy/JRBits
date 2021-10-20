@@ -43,7 +43,7 @@ namespace Engine::Level {
 
     void Level::CheckCorrectness() {
         if (world_.GetCamera() == nullptr) {
-            LOG(WARNING) << "No camera was set, so creating simple one";
+            LOG(WARNING) << "No camera was set, so creating a simple one";
             world_.SetCamera(std::make_shared<Engine::Drawable::Camera>());
             world_.GetCamera()->SetController(std::make_shared<Engine::Controller::NullController>());
         }

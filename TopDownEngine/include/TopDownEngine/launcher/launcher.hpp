@@ -17,6 +17,8 @@ namespace Engine::Launcher {
         LauncherConfig config_;
 
     public:
+        Launcher();
+
         virtual void Init(const LauncherConfig& config);
 
         sf::RenderWindow& GetWindow() { return window_; };

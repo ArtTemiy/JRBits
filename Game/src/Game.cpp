@@ -10,11 +10,11 @@
 
 
 int main() {
-    Engine::Launcher::LauncherConfig game_config;
+    Engine::Launcher::LauncherConfig game_config("configs/launcher.config.yaml");
     Engine::Launcher::Launcher launcher;
 
-    Engine::Level::LevelConfig level_config;
-    level_config.rsrc.map_source = "rsrc/maps/default.map";
+    Engine::Level::LevelConfig level_config("configs/level0.config.yaml");
+//    level_config.rsrc.map_source = "rsrc/maps/default.map";
 
     Engine::Level::Level level("Main level");
     auto& world = level.CreateWorld(level_config);
